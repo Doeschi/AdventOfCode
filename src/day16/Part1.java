@@ -15,20 +15,13 @@ public class Part1 {
         index = 0;
         versionSum = 0;
 
-        try {
-            readPacket();
-        } catch (StringIndexOutOfBoundsException e){
-            // do nothing
-        }
+        readPacket();
 
         System.out.printf("version sum: %d", versionSum);
     }
 
     private static void readPacket() {
-        int version = checkVersion();
-//        if (version == 0)
-//            return;
-
+        checkVersion();
         int type = checkType();
 
         if (type == 4) {
@@ -49,7 +42,8 @@ public class Part1 {
         int subPacketsLength = Integer.parseInt(binaries.substring(index, index + 15), 2);
         index += 15;
 
-        while (index + subPacketsLength < binaries.length()) {
+        int endIndex = index + subPacketsLength;
+        while (index < endIndex) {
             readPacket();
         }
     }
@@ -58,11 +52,10 @@ public class Part1 {
         int numberOfSubPackets = Integer.parseInt(binaries.substring(index, index + 11), 2);
         index += 11;
 
-        for (int i = 0; i < numberOfSubPackets; i++){
+        for (int i = 0; i < numberOfSubPackets; i++) {
             readPacket();
         }
     }
-
 
     private static void readLiteral() {
         char leadingBit;
@@ -73,11 +66,10 @@ public class Part1 {
         } while (leadingBit == '1');
     }
 
-    private static int checkVersion() {
+    private static void checkVersion() {
         int version = Integer.parseInt(binaries.substring(index, index + 3), 2);
         versionSum += version;
         index += 3;
-        return version;
     }
 
     private static int checkType() {
@@ -108,5 +100,4 @@ public class Part1 {
 
         return builder.toString();
     }
-
 }
