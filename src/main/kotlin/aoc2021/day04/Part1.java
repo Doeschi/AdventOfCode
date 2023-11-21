@@ -100,7 +100,7 @@ public class Part1 {
                 int[][] board = new int[5][];
 
                 for (int i = 0; i < 5; i++) {
-                    line = reader.readLine().strip().replace("  ", " ");
+                    line = reader.readLine().trim().replace("  ", " ");
                     String[] numbers = line.split(" ");
                     board[i] = Arrays.stream(numbers).mapToInt(Integer::parseInt).toArray();
                 }
