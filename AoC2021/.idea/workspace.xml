@@ -8,11 +8,12 @@
       <change afterPath="$PROJECT_DIR$/../AoC2015/.idea/copyright/Döschi.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../AoC2015/src/main/kotlin/Day01.kt" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../AoC2015/src/main/kotlin/Day02.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../AoC2015/src/main/kotlin/Day03.kt" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../AoC2015/src/main/kotlin/Day04.kt" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../AoC2015/src/main/kotlin/Day05.kt" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../AoC2015/src/main/kotlin/Day06.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../AoC2015/src/main/kotlin/DayTemplate.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../AoC2015/src/main/kotlin/Day08.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../AoC2015/src/main/kotlin/Day09.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../AoC2015/src/main/kotlin/Day10.kt" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../AoC2015/src/main/kotlin/Geometry.kt" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../AoC2015/src/main/resources/day01.txt" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../AoC2015/src/main/resources/day02.txt" afterDir="false" />
@@ -20,6 +21,14 @@
       <change afterPath="$PROJECT_DIR$/../AoC2015/src/main/resources/day04.txt" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../AoC2015/src/main/resources/day05.txt" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../AoC2015/src/main/resources/day06.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../AoC2015/src/main/resources/day07.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../AoC2015/src/main/resources/day08.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../AoC2015/src/main/resources/day09.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../AoC2015/src/main/resources/day10.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AoC2015/src/main/kotlin/Day03.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../AoC2015/src/main/kotlin/Day03.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AoC2015/src/main/kotlin/Day07.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../AoC2015/src/main/kotlin/Day07.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AoC2015/src/main/kotlin/Day11.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../AoC2015/src/main/kotlin/Day11.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AoC2015/src/main/kotlin/DayTemplate.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../AoC2015/src/main/kotlin/DayTemplate.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../AoC2015/src/main/kotlin/day01/Part1.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../AoC2015/src/main/kotlin/day01/Part2.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../AoC2015/src/main/kotlin/day01/input.txt" beforeDir="false" />
@@ -133,7 +142,7 @@
       <option name="presentableId" value="Default" />
       <updated>1700594804953</updated>
       <workItem from="1700594806109" duration="16834000" />
-      <workItem from="1700670435976" duration="43698000" />
+      <workItem from="1700670435976" duration="44279000" />
     </task>
     <task id="LOCAL-00001" summary="started working on aoc again and refactored some stuff">
       <option name="closed" value="true" />

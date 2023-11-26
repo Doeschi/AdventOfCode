@@ -18,17 +18,17 @@ class Day07(input: List<String>) {
     fun solvePart1(): Int {
         wires.clear()
         prepareWires()
-        return wires["a"]!!.getSignal()
+        return (wires["a"]?.getSignal()) ?: throw RuntimeException("Wire a not found")
     }
 
     fun solvePart2(): Int {
         wires.clear()
         prepareWires()
-        val signalOfA = wires["a"]!!.getSignal()
+        val signalOfA = (wires["a"]?.getSignal()) ?: throw RuntimeException("Wire a not found")
 
         wires.clear()
         prepareWires()
-        wires["b"]!!.source = Value(signalOfA)
+        wires["b"]!!.source = NumberLiteral(signalOfA)
 
         return wires["a"]!!.getSignal()
     }
@@ -39,7 +39,7 @@ class Day07(input: List<String>) {
             val source = split.first()
             val identifier = split.last()
 
-            val wire = wires.getOrPut(identifier) { Wire() }
+            val wire = wires.getOrPut(identifier) { Wire(identifier) }
             wire.source = getSource(source)
         }
     }
@@ -47,11 +47,11 @@ class Day07(input: List<String>) {
     private fun getSource(s: String): Source {
         // source is a value
         return if (s.all { c -> c.isDigit() }) {
-            Value(s.toInt())
+            NumberLiteral(s.toInt())
 
             // source is another wire
         } else if (s.all { c -> c.isLetter() }) {
-            wires.getOrPut(s) { Wire() }
+            wires.getOrPut(s) { Wire(s) }
 
             // source is a not gate
         } else if (s.contains("NOT")) {
@@ -80,48 +80,42 @@ internal abstract class Source {
     private var cachedSignal: Int = -1
 
     fun getSignal(): Int {
-        return if (cachedSignal != -1)
-            cachedSignal
-        else {
-            val signal = getSignalInternal()
-            cachedSignal = signal
-            signal
-        }
+        if (cachedSignal == -1)
+            cachedSignal = getSignalInternal()
+
+        return cachedSignal
     }
 
     protected abstract fun getSignalInternal(): Int
 }
 
-internal class Wire(var source: Source? = null) : Source() {
-    override fun getSignalInternal(): Int {
-        return source!!.getSignal()
-    }
+internal class Wire(private val identifier: String, var source: Source? = null) : Source() {
+    override fun getSignalInternal(): Int =
+        source?.getSignal() ?: throw RuntimeException("Wire $identifier has no signal source")
 }
 
-internal class Value(private val value: Int) : Source() {
+internal class NumberLiteral(private val value: Int) : Source() {
     override fun getSignalInternal(): Int = value
 }
 
 internal class NotGate(private var source: Source) : Source() {
     override fun getSignalInternal(): Int = source.getSignal().inv() and 0x0000FFFF
-
 }
 
-internal class AndGate(private val source1: Source, private val source2: Source) : Source() {
+internal abstract class BinaryOperator(val source1: Source, val source2: Source) : Source()
+
+internal class AndGate(s1: Source, s2: Source) : BinaryOperator(s1, s2) {
     override fun getSignalInternal(): Int = (source1.getSignal() and source2.getSignal()) and 0x0000FFFF
-
 }
 
-internal class OrGate(private val source1: Source, private val source2: Source) : Source() {
+internal class OrGate(s1: Source, s2: Source) : BinaryOperator(s1, s2) {
     override fun getSignalInternal(): Int = (source1.getSignal() or source2.getSignal()) and 0x0000FFFF
-
 }
 
-internal class LeftShift(private val source1: Source, private val source2: Source) : Source() {
+internal class LeftShift(s1: Source, s2: Source) : BinaryOperator(s1, s2) {
     override fun getSignalInternal(): Int = (source1.getSignal() shl source2.getSignal()) and 0x0000FFFF
-
 }
 
-internal class RightShift(private val source1: Source, private val source2: Source) : Source() {
+internal class RightShift(s1: Source, s2: Source) : BinaryOperator(s1, s2) {
     override fun getSignalInternal(): Int = (source1.getSignal() shr source2.getSignal()) and 0x0000FFFF
 }

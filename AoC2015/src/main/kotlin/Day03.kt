@@ -1,5 +1,4 @@
 import java.io.File
-import java.util.function.Predicate
 
 /*
  * Copyright (c) 2023. by Dominic Gernert
@@ -16,17 +15,17 @@ fun main() {
 class Day03(input: String) {
     private val moves = input
 
-    fun solvePart1(): Int = visitHouses1(moves).size
+    fun solvePart1(): Int = visitHouses1(moves)
 
-    fun solvePart2(): Int = visitHouses2(moves).size
+    fun solvePart2(): Int = visitHouses2(moves)
 
-    private fun visitHouses1(moves: String): HashSet<Pair<Int, Int>> {
-        val houses = HashSet<Pair<Int, Int>>()
+    private fun visitHouses1(moves: String): Int {
+        val houses = HashSet<Point2d>()
         var x = 0
         var y = 0
 
         // visit starting house
-        houses.add(Pair(0, 0))
+        houses.add(Point2d(0, 0))
 
         moves.forEach { move ->
             when (move) {
@@ -36,13 +35,13 @@ class Day03(input: String) {
                 '<' -> y--
             }
 
-            houses.add(Pair(x, y))
+            houses.add(Point2d(x, y))
         }
 
-        return houses
+        return houses.size
     }
 
-    private fun visitHouses2(moves: String): HashSet<Point2d> {
+    private fun visitHouses2(moves: String): Int {
         val houses = HashSet<Point2d>()
         var x = 0
         var y = 0
@@ -69,6 +68,6 @@ class Day03(input: String) {
         // visits of robo santa
         houses.addAll(moves.filterIndexed { index, _ -> index % 2 == 1 }.map(action))
 
-        return houses
+        return houses.size
     }
 }

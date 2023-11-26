@@ -9,7 +9,6 @@ fun main() {
 
     println("Part 1 - ${dayXX.solvePart1()}")
     println("Part 2 - ${dayXX.solvePart2()}")
-
 }
 
 class DayTemplate(input: String) {
