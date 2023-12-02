@@ -7,16 +7,14 @@
     <version>1.0</version>
     <packaging>jar</packaging>
 
-    <name>Bot-Race Board</name>
+    <name>Advent of Code 2023</name>
 
     <description>
-        The Bot-Race Board is an Akka system denoting the board of the Bot-Race Akka
-        cluster system.
+        https://adventofcode.com/2023
     </description>
 
 
     <properties>
-        <javafx.version>21</javafx.version>
         <!-- Do not run with JPMS enabled as Akka/Scala libraries are not yet JPMS-enabled. -->
         <!-- <appModule>ch.bfh.akka.actorrace.board</appModule> -->
         <!--        <mainClass></mainClass>-->
@@ -25,16 +23,10 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.release>${java.version}</maven.compiler.release>
-        <mycila.license.plugin.version>4.3</mycila.license.plugin.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <akka.version>2.8.5</akka.version>
-        <scala.binary.version>2.13</scala.binary.version>
-        <jackson.module.scala.version>2.13.4</jackson.module.scala.version>
-        <typesafe.version>1.4.2</typesafe.version>
-        <slf4j.version>2.0.9</slf4j.version>
-        <ch.qos.logback.version>1.4.7</ch.qos.logback.version>
-        <version.junit>5.9.0</version.junit>
         <tornadofx.version>1.7.20</tornadofx.version>
+        <javafx.version>21</javafx.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <version.junit>5.9.0</version.junit>
     </properties>
 
     <dependencies>
@@ -42,36 +34,6 @@
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib</artifactId>
             <version>${kotlin.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.typesafe.akka</groupId>
-            <artifactId>akka-actor-typed_${scala.binary.version}</artifactId>
-            <version>${akka.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.typesafe.akka</groupId>
-            <artifactId>akka-cluster-typed_${scala.binary.version}</artifactId>
-            <version>${akka.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.typesafe.akka</groupId>
-            <artifactId>akka-slf4j_${scala.binary.version}</artifactId>
-            <version>${akka.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.typesafe</groupId>
-            <artifactId>config</artifactId>
-            <version>${typesafe.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>${ch.qos.logback.version}</version>
         </dependency>
         <dependency>
             <groupId>no.tornado</groupId>
@@ -154,7 +116,7 @@
                     <executable>java</executable>
                     <!-- Cannot execute as JPMS application -->
                     <!-- <mainClass>${appModule}/${mainClass}</mainClass> -->
-<!--                    <mainClass>${mainClass}</mainClass>-->
+                    <!--                    <mainClass>${mainClass}</mainClass>-->
                 </configuration>
             </plugin>
             <plugin>
