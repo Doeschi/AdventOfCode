@@ -38,22 +38,16 @@ class Day03(input: List<String>) {
                     val yMin = maxOf(0, rowIndex - 1)
                     val yMax = minOf(schematic.lastIndex, rowIndex + 1)
 
-                    var isPartNumber = false
-
                     outerLoop@
                     for (y in yMin..yMax) {
                         for (x in xMin..xMax) {
                             val neighborC = schematic[y][x]
 
                             if (neighborC != '.' && !neighborC.isDigit()) {
-                                isPartNumber = true
+                                sum += num.toInt()
                                 break@outerLoop
                             }
                         }
-                    }
-
-                    if (isPartNumber) {
-                        sum += num.toInt()
                     }
 
                     colIndex = i
