@@ -1,11 +1,11 @@
 import regex as re
 
 
-def getValue(element: str) -> int:
+def get_value(element: str) -> int:
     try:
         return int(element)
 
-    except:
+    except ValueError:
         if element == "one":
             return 1
         elif element == "two":
@@ -28,22 +28,22 @@ def getValue(element: str) -> int:
             raise RuntimeError(f"CANT PARSE NUMBER: {element}")
 
 
-def solvePart2() -> int:
-    lines = open('D:\Workspace\AdventOfCode\AoC2023\src\main\\resources\day01.txt').readlines()
-    sum = 0
+def solve_part2() -> int:
+    lines = open("D:\Workspace\AdventOfCode\AoC2023\src\main\\resources\day01.txt").readlines()
+    total = 0
 
     for line in lines:
         match = re.findall(r'one|two|three|four|five|six|seven|eight|nine|\d', line, overlapped=True)
-        first_dig = getValue(match[0])
-        last_dig = getValue(match[len(match) - 1])
+        first_dig = get_value(match[0])
+        last_dig = get_value(match[len(match) - 1])
 
-        sum += (first_dig * 10) + last_dig
+        total += (first_dig * 10) + last_dig
 
-    return sum
+    return total
 
 
 def main():
-    print(f"sum is {solvePart2()}")
+    print(f"sum is {solve_part2()}")
 
 
 if __name__ == "__main__":
