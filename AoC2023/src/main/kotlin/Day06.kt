@@ -1,5 +1,4 @@
 import java.io.File
-import kotlin.math.sin
 
 /*
  * Copyright (c) 2023. by Dominic Gernert
@@ -15,6 +14,7 @@ fun main() {
 class Day06(input: List<String>) {
     private val races = mapRaces(input)
     private val singleRace = mapSingleRace(input)
+
     fun solvePart1(): Int {
         var result = 1
 
@@ -45,7 +45,7 @@ class Day06(input: List<String>) {
         val time = regex.findAll(input.first()).toList()
         val dist = regex.findAll(input.last()).toList()
 
-        return time.mapIndexed { index, result -> Race(result.value.toLong(), dist[index].value.toLong()) }
+        return time.mapIndexed { index, t -> Race(t.value.toLong(), dist[index].value.toLong()) }
     }
 
     private fun mapSingleRace(input: List<String>): Race {
