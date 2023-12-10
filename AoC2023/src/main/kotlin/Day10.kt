@@ -26,7 +26,7 @@ class Day10(input: List<String>) {
             row.forEach { pipe ->
                 if (grid.loopPipes.contains(pipe)) {
                     print("${green}${pipe.type}$reset")
-                } else if (isInsideLoop(pipe)) {
+                } else if (grid.loopPolygon.contains(Point2d(pipe.x, pipe.y))) {
                     nbrOfEnclosedTiles++
                     print("${red}I$reset")
                 } else
@@ -36,21 +36,6 @@ class Day10(input: List<String>) {
         }
 
         return nbrOfEnclosedTiles
-    }
-
-    private fun isInsideLoop(pipe: Pipe): Boolean {
-        // check if the point is inside the loop with the
-        // ray casting algorithm
-        var count = 0
-
-        grid.loopPolygon.edges.forEach { edge ->
-            if ((pipe.y < edge.start.y) != (pipe.y < edge.end.y) &&
-                pipe.x < edge.start.x + (((pipe.y - edge.start.y) / (edge.end.y - edge.start.y)) * (edge.end.x - edge.start.x))
-            )
-                count++
-        }
-
-        return count % 2 == 1
     }
 }
 
