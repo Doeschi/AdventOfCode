@@ -13,6 +13,8 @@ fun main() {
 
 class Day10(input: List<String>) {
     private val grid = Grid(input)
+    private val niceChars = mapOf('F' to '┏', 'J' to '┛', 'L' to '┗', '7' to '┓', '-' to '━', '|' to '┃')
+
     fun solvePart1(): Int = grid.loopLength / 2
 
     fun solvePart2(): Int {
@@ -25,12 +27,12 @@ class Day10(input: List<String>) {
         grid.tiles.forEach { row ->
             row.forEach { pipe ->
                 if (grid.loopPipes.contains(pipe)) {
-                    print("${green}${pipe.type}$reset")
+                    print("${green}${niceChars[pipe.type] ?: pipe.type}$reset")
                 } else if (grid.loopPolygon.contains(Point2d(pipe.x, pipe.y))) {
                     nbrOfEnclosedTiles++
                     print("${red}I$reset")
                 } else
-                    print(pipe.type)
+                    print(niceChars[pipe.type] ?: pipe.type)
             }
             println()
         }
