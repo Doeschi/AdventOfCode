@@ -22,14 +22,10 @@ class Day11(input: List<String>) {
 
     private fun getTotalLength(galaxies: List<Galaxy>): Long {
         var totalLength = 0L
-        var c = 0
-
         for (i in 0..<galaxies.lastIndex) {
             for (j in i + 1..galaxies.lastIndex) {
-
                 val g1 = galaxies[i]
                 val g2 = galaxies[j]
-                c++
                 totalLength += getLength(g1, g2)
             }
         }
