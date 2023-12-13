@@ -8,8 +8,8 @@ import java.io.File
 fun main() {
     val day01 = Day01(File("src/main/resources/day01.txt").bufferedReader().readLines())
 
-    println("Part 1 - max calories ${day01.solvePart1()}")
-    println("Part 2 - total of max 3 calories ${day01.solvePart2()}")
+    println("Part 1 - ${day01.solvePart1()}")
+    println("Part 2 - ${day01.solvePart2()}")
 }
 
 class Day01(input: List<String>) {
