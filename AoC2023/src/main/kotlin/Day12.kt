@@ -13,40 +13,37 @@ fun main() {
 
 class Day12(input: List<String>) {
     private val records = input.map { Record.of(it) }
-    private val calculatedStates = HashMap<State, Long>()
+    private val calculatedStates = HashMap<Record, Long>()
 
-    fun solvePart1(): Long = records.sumOf {
+    fun solvePart1(): Long = records.sumOf { record ->
         calculatedStates.clear()
-        getPossibilities(it.data, it.groups)
+        getPossibilities(record)
     }
 
-    fun solvePart2(): Long {
-        val sum = records.sumOf { record ->
-            calculatedStates.clear()
+    fun solvePart2(): Long = records.sumOf { record ->
+        calculatedStates.clear()
 
-            var unfoldedData = record.data
-            val unfoldedGroups = record.groups.toMutableList()
+        var unfoldedData = record.data
+        val unfoldedGroups = record.groups.toMutableList()
 
-            for (i in 0..3) {
-                unfoldedData = "$unfoldedData?${record.data}"
-                unfoldedGroups.addAll(record.groups)
-            }
-
-            getPossibilities(unfoldedData, unfoldedGroups)
+        for (i in 0..3) {
+            unfoldedData = "$unfoldedData?${record.data}"
+            unfoldedGroups.addAll(record.groups)
         }
 
-        return sum
+        getPossibilities(Record(unfoldedData, unfoldedGroups))
     }
 
-    private fun getPossibilities(data: String, groups: List<Int>): Long {
-        val state = State(data, groups)
+    private fun getPossibilities(recordState: Record): Long {
+        if (calculatedStates.contains(recordState))
+            return calculatedStates[recordState]!!
 
-        if (calculatedStates.contains(state))
-            return calculatedStates[state]!!
-
-        val nbrOfDamaged = groups.first()
         var nbrOfPossibilities = 0L
         var index = 0
+
+        val data = recordState.data
+        val groups = recordState.groups
+        val nbrOfDamaged = groups.first()
 
         while (!data.substring(0, index).contains('#') && index + nbrOfDamaged <= data.lastIndex + 1) {
             val possibleGroup = data.substring(index, index + nbrOfDamaged)
@@ -58,28 +55,21 @@ class Day12(input: List<String>) {
                     if (groups.size == 1) {
                         if (indexAfterGroup <= data.lastIndex) {
                             val dataAfterGroup = data.substring(indexAfterGroup)
-                            if (dataAfterGroup.contains('#')) {
-                                index++
-                                continue
-                            } else {
+                            if (!dataAfterGroup.contains('#'))
                                 nbrOfPossibilities++
-                            }
                         } else
                             nbrOfPossibilities++
+
                     } else {
-                        val newDataStartIndex = index + nbrOfDamaged + 1 // indexAfterGroup + 1
+                        val newDataStartIndex = indexAfterGroup + 1
                         if (newDataStartIndex > data.lastIndex)
                             break
 
-                        val newData = data.substring(index + nbrOfDamaged + 1)
+                        val newData = data.substring(newDataStartIndex)
                         val newGroups = groups.drop(1)
 
-                        if (newData.count { it == '#' } > newGroups.sumOf { it }) {
-                            index++
-                            continue
-                        }
-
-                        nbrOfPossibilities += getPossibilities(newData, newGroups)
+                        if (newData.count { it == '#' } <= newGroups.sumOf { it })
+                            nbrOfPossibilities += getPossibilities(Record(newData, newGroups))
                     }
                 }
             }
@@ -87,23 +77,19 @@ class Day12(input: List<String>) {
             index++
         }
 
-        calculatedStates[state] = nbrOfPossibilities
+        calculatedStates[recordState] = nbrOfPossibilities
         return nbrOfPossibilities
-    }
-
-    internal data class State(val data: String, val groups: List<Int>)
-
-    internal class Record(val data: String, val groups: List<Int>) {
-        companion object {
-            fun of(rawString: String): Record {
-                val s = rawString.split(" ")
-                val data = s.first()
-                val groups = s.last().split(",").map { it.toInt() }
-
-                return Record(data, groups)
-            }
-        }
     }
 }
 
+internal data class Record(val data: String, val groups: List<Int>) {
+    companion object {
+        fun of(rawString: String): Record {
+            val s = rawString.split(" ")
+            val data = s.first()
+            val groups = s.last().split(",").map { it.toInt() }
 
+            return Record(data, groups)
+        }
+    }
+}
