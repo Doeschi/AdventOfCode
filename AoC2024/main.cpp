@@ -35,7 +35,7 @@ int main() {
     // create vector with raw pointers
     std::vector<Base*> vec1{new Derived()};
 
-    std::vector<std::unique_ptr<Base>> vec2{ std::make_unique<Derived>() };
+    std::vector<std::unique_ptr<Base>> vec2{ /*std::make_unique<Derived>()*/ };
     vec2.push_back(std::make_unique<Derived>());
 
     // print
