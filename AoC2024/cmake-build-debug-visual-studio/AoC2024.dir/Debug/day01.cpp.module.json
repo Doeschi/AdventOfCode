@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "AoC2024.dir\\Debug\\Day01.obj",
+            "outputs": [
+                "E:\\Workspace\\AdventOfCode\\AoC2024\\cmake-build-debug-visual-studio\\AoC2024.dir\\Debug\\vc143.pdb",
+                "AoC2024.dir\\Debug\\"
+            ],
+            "requires": []
+        }
+    ]
+}

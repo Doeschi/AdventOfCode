@@ -1,0 +1,5 @@
+"C:\Program Files\CMake\bin\cmake.exe" -G "Visual Studio 17 2022" -S E:\Workspace\AdventOfCode\AoC2024 -B E:\Workspace\AdventOfCode\AoC2024\cmake-build-debug-visual-studio
+-- Selecting Windows SDK version 10.0.22621.0 to target Windows 10.0.19045.
+-- Configuring done (0.0s)
+-- Generating done (0.0s)
+-- Build files have been written to: E:/Workspace/AdventOfCode/AoC2024/cmake-build-debug-visual-studio

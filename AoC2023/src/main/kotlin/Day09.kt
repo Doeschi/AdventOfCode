@@ -1,4 +1,3 @@
-import scala.Enumeration.Val
 import java.io.File
 
 /*

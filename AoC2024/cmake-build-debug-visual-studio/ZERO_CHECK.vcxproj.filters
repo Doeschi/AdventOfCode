@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="E:\Workspace\AdventOfCode\AoC2024\cmake-build-debug-visual-studio\CMakeFiles\e569d84ce63f5a3acec7ac154dd35f33\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{662A1C35-DA22-3888-9698-D4F4A364AA34}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
