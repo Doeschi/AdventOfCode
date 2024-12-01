@@ -11,7 +11,7 @@ class BaseDay {
 public:
     explicit BaseDay(std::string filepath);
 
-    ~BaseDay() = default;
+    virtual ~BaseDay() = default;
 
     virtual void solvePartOne() const = 0;
     virtual void solvePartTwo() const = 0;
