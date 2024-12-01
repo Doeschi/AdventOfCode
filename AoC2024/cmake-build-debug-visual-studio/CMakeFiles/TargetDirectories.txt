@@ -1,3 +1,0 @@
-E:/Workspace/AdventOfCode/AoC2024/cmake-build-debug-visual-studio/CMakeFiles/AoC2024.dir
-E:/Workspace/AdventOfCode/AoC2024/cmake-build-debug-visual-studio/CMakeFiles/ALL_BUILD.dir
-E:/Workspace/AdventOfCode/AoC2024/cmake-build-debug-visual-studio/CMakeFiles/ZERO_CHECK.dir
