@@ -10,7 +10,7 @@
 Day01::Day01() : BaseDay{"day01.txt"} {}
 
 void Day01::solvePartOne() const {
-    auto lists = getLists();
+    auto const lists = getLists();
     int totalDistance{0};
 
     for (int i = 0; i < lists.nbrOfLocations(); ++i) {
@@ -21,7 +21,7 @@ void Day01::solvePartOne() const {
 }
 
 void Day01::solvePartTwo() const {
-    auto lists = getLists();
+    auto const lists = getLists();
     int similarityScore{0};
 
     for (const auto& firstLocationId: lists.first) {
@@ -44,7 +44,7 @@ Day01::LocationLists Day01::getLists() const {
     LocationLists lists;
 
     for (auto& line: m_inputLines) {
-        auto splitted = splitString(line, ',');
+        auto const splitted = splitString(line, ',');
 
         if (splitted.size() != 2) {
             std::cerr << "Two locations IDs per line are required, but " << splitted.size() << " were given\n";
@@ -52,8 +52,8 @@ Day01::LocationLists Day01::getLists() const {
         }
 
         try {
-            int first = std::stoi(splitted.at(0));
-            int second = std::stoi(splitted.at(1));
+            int const first = std::stoi(splitted.at(0));
+            int const second = std::stoi(splitted.at(1));
 
             lists.first.push_back(first);
             lists.second.push_back(second);

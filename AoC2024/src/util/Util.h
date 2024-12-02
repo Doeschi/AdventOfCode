@@ -6,4 +6,6 @@
 #include <string>
 #include <vector>
 
-std::vector<std::string> splitString(const std::string& s, const char delim);
+std::vector<std::string> splitString(const std::string& s, char delim);
+
+std::vector<int> splitStringToInt(const std::string& s, char delim);

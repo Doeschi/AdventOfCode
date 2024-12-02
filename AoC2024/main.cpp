@@ -1,54 +1,32 @@
-
-#include "src/BaseDay/BaseDay.h"
-#include "src/Day01/Day01.h"
-
-//
-//void runAllDays() {
-//    std::vector<std::unique_ptr<BaseDay>> allDays = { std::make_unique<Day01>() };
-//
-//    for (const auto& [name, day]: allDays) {
-//        std::cout << "---------- " << name << " ----------" << std::endl;
-//
-//        day.solvePartOne();
-//        day.solvePartTwo();
-//    }
-//}
 #include <iostream>
 #include <memory>
 #include <vector>
 #include <utility>
+#include <format>
 
-class Base {
-public:
-    virtual void print() const = 0;
 
-    virtual ~Base() = default;
-};
+#include "src/BaseDay/BaseDay.h"
+#include "src/Day01/Day01.h"
+#include "src/Day02/Day02.h"
 
-class Derived : public Base {
-    void print() const override {
-        std::cout << "TEST" << std::endl;
+
+void runAllDays() {
+    std::vector<std::unique_ptr<BaseDay>> allDays;
+    allDays.push_back(std::make_unique<Day01>());
+
+    for (auto i{0}; i < allDays.size(); ++i) {
+        std::cout << "---------- DAY " << std::format("{:2}", i + 1) << " ----------" << std::endl;
+
+        auto& day = allDays[i];
+        day->solvePartOne();
+        day->solvePartTwo();
     }
-};
+}
 
 int main() {
-    // create vector with raw pointers
-    std::vector<Base*> vec1{new Derived()};
+    //runAllDays();
+    Day02 day02{};
 
-    std::vector<std::unique_ptr<Base>> vec2{ /*std::make_unique<Derived>()*/ };
-    vec2.push_back(std::make_unique<Derived>());
-
-    // print
-    for (const auto& item: vec1) {
-        item->print();
-    }
-
-    for (const auto& item: vec2) {
-        item->print();
-    }
-
-    // delete objects
-    for (const auto& item: vec1) {
-        delete item;
-    }
+    day02.solvePartOne();
+    day02.solvePartTwo();
 }
