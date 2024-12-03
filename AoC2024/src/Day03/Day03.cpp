@@ -26,7 +26,7 @@ int Day03::parseInput(const bool parseDoAndDont) const {
     return parser.getResult();
 }
 
-void Day03::MulParser::parseInstructions(const std::string& instructions) {
+void Day03::MulParser::parseInstructions(std::string const& instructions) {
     m_instructions = instructions;
     m_offset = 0;
 

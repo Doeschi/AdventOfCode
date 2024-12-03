@@ -21,7 +21,7 @@ private:
     public:
         explicit MulParser(bool parseDoAndDont = false) : m_parseDoAndDont{parseDoAndDont} {};
 
-        void parseInstructions(const std::string& instructions);
+        void parseInstructions(std::string const& instructions);
 
         [[nodiscard]] int getResult() const;
 
