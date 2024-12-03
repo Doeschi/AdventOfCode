@@ -6,6 +6,7 @@
 #include "src/BaseDay/BaseDay.h"
 #include "src/Day01/Day01.h"
 #include "src/Day02/Day02.h"
+#include "src/Day03/Day03.h"
 
 void runAllDays() {
     std::vector<std::unique_ptr<BaseDay>> allDays;
@@ -32,6 +33,6 @@ void runDay(std::unique_ptr<BaseDay> day) {
 }
 
 int main() {
-    runDay(std::make_unique<Day02>());
+    runDay(std::make_unique<Day03>());
     // runAllDays();
 }
