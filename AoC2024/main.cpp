@@ -7,12 +7,14 @@
 #include "src/Day01/Day01.h"
 #include "src/Day02/Day02.h"
 #include "src/Day03/Day03.h"
+#include "src/Day04/Day04.h"
 
 void runAllDays() {
     std::vector<std::unique_ptr<BaseDay>> allDays;
 
     allDays.push_back(std::make_unique<Day01>());
     allDays.push_back(std::make_unique<Day02>());
+    allDays.push_back(std::make_unique<Day03>());
 
     for (auto i{0}; i < allDays.size(); ++i) {
         std::cout << "---------- DAY " << std::format("{:2}", i + 1) << " ----------" << std::endl;
@@ -33,6 +35,6 @@ void runDay(std::unique_ptr<BaseDay> day) {
 }
 
 int main() {
-    runDay(std::make_unique<Day03>());
+    runDay(std::make_unique<Day04>());
     // runAllDays();
 }
