@@ -13,7 +13,7 @@ Day04::Day04() : BaseDay{"day04.txt"} {
     m_size = m_grid.size() - 1;
 }
 
-void Day04::solvePartOne() const {
+void Day04::solvePartOne() {
     auto xmasCount{0};
 
     for (auto y{0}; y < m_grid.size(); ++y) {
@@ -27,7 +27,7 @@ void Day04::solvePartOne() const {
     std::cout << "XMAS count: " << xmasCount << std::endl;
 }
 
-void Day04::solvePartTwo() const {
+void Day04::solvePartTwo() {
     auto masCrossCount{0};
     for (auto y{0}; y < m_grid.size(); ++y) {
         for (auto x{0}; x < m_grid[y].size(); ++x) {
@@ -86,7 +86,7 @@ bool Day04::hasXmas(int x, int y, int xScale, int yScale) const {
 }
 
 bool Day04::hasMasCross(int x, int y) const {
-    if (x > 0 && x < m_size && y > 0 && y < m_size){
+    if (x > 0 && x < m_size && y > 0 && y < m_size) {
         std::string mainDiagonal{};
         mainDiagonal = m_grid[y - 1][x + 1];
         mainDiagonal += m_grid[y + 1][x - 1];

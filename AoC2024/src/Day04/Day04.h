@@ -12,9 +12,9 @@ class Day04 : public BaseDay {
 public:
     Day04();
 
-    void solvePartOne() const override;
+    void solvePartOne() override;
 
-    void solvePartTwo() const override;
+    void solvePartTwo() override;
 
     using Grid = std::vector<std::vector<char>>;
 private:

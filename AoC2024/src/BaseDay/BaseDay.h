@@ -13,8 +13,8 @@ public:
 
     virtual ~BaseDay() = default;
 
-    [[maybe_unused]] virtual void solvePartOne() const = 0;
-    [[maybe_unused]] virtual void solvePartTwo() const = 0;
+    [[maybe_unused]] virtual void solvePartOne() = 0;
+    [[maybe_unused]] virtual void solvePartTwo() = 0;
 
 protected:
     std::vector<std::string> m_inputLines;

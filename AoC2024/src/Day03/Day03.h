@@ -10,9 +10,9 @@ class Day03 : public BaseDay {
 public:
     Day03();
 
-    void solvePartOne() const override;
+    void solvePartOne() override;
 
-    void solvePartTwo() const override;
+    void solvePartTwo() override;
 
 private:
     [[nodiscard]] int parseInput(bool parseDoAndDont) const;

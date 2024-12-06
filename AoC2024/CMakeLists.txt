@@ -26,9 +26,12 @@ add_executable(AoC2024 main.cpp
         src/Day03/Day03.h
         src/Day04/Day04.cpp
         src/Day04/Day04.h
+        src/Day05/Day05.cpp
+        src/Day05/Day05.h
 )
 
 file(COPY src/Day01/day01.txt DESTINATION ${CMAKE_BINARY_DIR}/Debug)
 file(COPY src/Day02/day02.txt DESTINATION ${CMAKE_BINARY_DIR}/Debug)
 file(COPY src/Day03/day03.txt DESTINATION ${CMAKE_BINARY_DIR}/Debug)
 file(COPY src/Day04/day04.txt DESTINATION ${CMAKE_BINARY_DIR}/Debug)
+file(COPY src/Day05/day05.txt DESTINATION ${CMAKE_BINARY_DIR}/Debug)

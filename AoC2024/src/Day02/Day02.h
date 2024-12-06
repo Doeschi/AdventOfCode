@@ -13,9 +13,9 @@ class Day02 : public BaseDay {
 public:
     Day02();
 
-    void solvePartOne() const override;
+    void solvePartOne() override;
 
-    void solvePartTwo() const override;
+    void solvePartTwo() override;
 
 private:
     using Levels = std::vector<int>;

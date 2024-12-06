@@ -8,11 +8,11 @@
 
 Day03::Day03() : BaseDay("day03.txt") {}
 
-void Day03::solvePartOne() const {
+void Day03::solvePartOne() {
     std::cout << "Sum of mul instructions: " << parseInput(false) << std::endl;
 }
 
-void Day03::solvePartTwo() const {
+void Day03::solvePartTwo() {
     std::cout << "Sum of mul instructions, respecting do and dont: " << parseInput(true) << std::endl;
 }
 

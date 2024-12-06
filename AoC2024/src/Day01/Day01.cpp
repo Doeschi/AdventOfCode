@@ -9,7 +9,7 @@
 
 Day01::Day01() : BaseDay{"day01.txt"} {}
 
-void Day01::solvePartOne() const {
+void Day01::solvePartOne() {
     auto const lists = getLists();
     int totalDistance{0};
 
@@ -20,7 +20,7 @@ void Day01::solvePartOne() const {
     std::cout << "Total distance: " << totalDistance << std::endl;
 }
 
-void Day01::solvePartTwo() const {
+void Day01::solvePartTwo() {
     auto const lists = getLists();
     int similarityScore{0};
 

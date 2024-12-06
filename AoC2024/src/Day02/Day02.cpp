@@ -10,7 +10,7 @@
 
 Day02::Day02() : BaseDay{"day02.txt"} {}
 
-void Day02::solvePartOne() const {
+void Day02::solvePartOne() {
     auto safeReports{0};
 
     for (const auto& line: m_inputLines) {
@@ -23,7 +23,7 @@ void Day02::solvePartOne() const {
     std::cout << "Number of safe reports: " << safeReports << std::endl;
 }
 
-void Day02::solvePartTwo() const {
+void Day02::solvePartTwo() {
     auto safeReports{0};
 
     for (const auto& line: m_inputLines) {
@@ -36,7 +36,7 @@ void Day02::solvePartTwo() const {
                 auto levelsCpy = levels;
                 levelsCpy.erase(levelsCpy.begin() + i);
 
-                if (isSafe(levelsCpy)){
+                if (isSafe(levelsCpy)) {
                     ++safeReports;
                     break;
                 }

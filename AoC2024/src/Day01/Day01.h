@@ -11,9 +11,9 @@ class Day01 : public BaseDay {
 public:
     Day01();
 
-    void solvePartOne() const override;
+    void solvePartOne() override;
 
-    void solvePartTwo() const override;
+    void solvePartTwo() override;
 
 private:
     struct LocationLists {
