@@ -10,7 +10,6 @@
 #include "src/Day03/Day03.h"
 #include "src/Day04/Day04.h"
 #include "src/Day05/Day05.h"
-#include "src/Day06/Day06.h"
 #include "src/Day07/Day07.h"
 
 void runDay(std::unique_ptr<BaseDay> day) {
@@ -37,7 +36,7 @@ void runAllDays() {
     allDays.push_back(std::make_unique<Day03>());
     allDays.push_back(std::make_unique<Day04>());
     allDays.push_back(std::make_unique<Day05>());
-//    allDays.push_back(std::make_unique<Day06>());
+    allDays.push_back(std::make_unique<Day06>());
     allDays.push_back(std::make_unique<Day07>());
 
     for (auto i{0}; i < allDays.size(); ++i) {
@@ -51,6 +50,6 @@ void runAllDays() {
 }
 
 int main() {
-    runDay(std::make_unique<Day06>());
+    runDay(std::make_unique<Day07>());
 //     runAllDays();
 }

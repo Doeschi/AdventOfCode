@@ -45,7 +45,7 @@ bool Day07::isSolvable(const Day07::Equation& equation, long long subResult, int
         } else if (op == '*') {
             subResult *= equation.values[index];
         } else if (op == '|') {
-            subResult *= static_cast<long long>(std::pow(10, countDigits(equation.values[index])));
+            subResult *= powerOfTen[countDigits(equation.values[index])];
             subResult += equation.values[index];
         }
 
