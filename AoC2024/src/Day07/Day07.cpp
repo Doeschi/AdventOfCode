@@ -23,9 +23,9 @@ void Day07::initEquations() {
         auto split = splitString(line, ':');
 
         auto result = std::stoll(split[0]);
+
         auto valuesString = split[1];
         trim(valuesString);
-
         auto values = splitStringToLongLong(valuesString, ' ');
 
         m_equations.push_back(Equation{result, values});
@@ -36,9 +36,9 @@ bool Day07::isSolvable(const Day07::Equation& equation, long long subResult, int
                        const std::vector<char>& operators) const {
 
     for (const auto& op: operators) {
-        // apply operation
         auto before = subResult;
 
+        // apply operation
         if (op == '+') {
             subResult += equation.values[index];
         } else if (op == '*') {
@@ -48,12 +48,14 @@ bool Day07::isSolvable(const Day07::Equation& equation, long long subResult, int
             subResult += equation.values[index];
         }
 
-
+        // we got the correct result and all terms are used
         if (subResult == equation.result && index == equation.values.size() - 1) {
             return true;
         }
 
-        if (index < equation.values.size() - 1)
+        // only make the recursive call if we are not yet at the last term
+        // and the subResult has not exceeded the correct result yet
+        if (index < equation.values.size() - 1 && subResult < equation.result)
             if (isSolvable(equation, subResult, index + 1, operators))
                 return true;
 
