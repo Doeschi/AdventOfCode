@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <unordered_set>
+
 #include "../BaseDay/BaseDay.h"
 
 class Day06 : public BaseDay {
@@ -27,7 +29,6 @@ private:
     struct Position {
         int x{0};
         int y{0};
-        int dir{Direction::UP};
 
         bool operator==(const Position& other) const = default;
     };
@@ -36,19 +37,47 @@ private:
         std::size_t operator()(const Position& p) const {
             std::size_t h1 = std::hash<int>()(p.x);
             std::size_t h2 = std::hash<int>()(p.y);
+
+            return h1 ^ (h2 << 1);
+        }
+    };
+
+    struct PositionWithDir {
+        int x{0};
+        int y{0};
+        int dir{Direction::UP};
+
+        bool operator==(const PositionWithDir& other) const = default;
+    };
+
+    struct PositionWithDirHash {
+        std::size_t operator()(const PositionWithDir& p) const {
+            std::size_t h1 = std::hash<int>()(p.x);
+            std::size_t h2 = std::hash<int>()(p.y);
             std::size_t h3 = std::hash<int>()(p.dir);
 
             return h1 ^ (h2 << 1) ^ (h3 << 2);
         }
     };
 
-    Grid m_grid;
-    Position pos;
-    Position invalidPos{-1, -1};
 
-    void initGrid();
+    struct Lab {
+        Grid grid;
+        Position guardPos;
+        int dir{Direction::UP};
 
-    void printGrid();
+        [[nodiscard]] Position getNextPos() const;
 
-    Position getNextPos() const;
+        void turnRight();
+
+        std::unordered_set<Position, PositionHash> getPath();
+
+        void printGrid() const;
+    };
+
+    constexpr static Position const invalidPos{-1, -1};
+
+    Lab m_lab;
+
+    void initLab();
 };

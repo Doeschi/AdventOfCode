@@ -9,77 +9,66 @@
 #include "Day06.h"
 
 Day06::Day06() : BaseDay{"day06.txt"} {
-    initGrid();
+    initLab();
 }
 
 void Day06::solvePartOne() {
+    auto lab{m_lab};
+
+    // walk the path
+    lab.getPath();
+
     auto visitedPos{0};
-
-    while (true) {
-        auto nextPos{getNextPos()};
-
-        if (nextPos == invalidPos)
-            break;
-
-        if (m_grid[nextPos.y][nextPos.x] == '#') {
-            pos.dir = (pos.dir + 1) % 4;
-        } else {
-            if (m_grid[pos.y][pos.x] != 'X') {
+    for (const auto& line: lab.grid) {
+        for (const auto& c: line) {
+            if (c == 'X')
                 ++visitedPos;
-                m_grid[pos.y][pos.x] = 'X';
-            }
-
-            pos = nextPos;
         }
     }
 
-    std::cout << "Number of distinct positions: " << visitedPos + 1 << std::endl;
+    std::cout << "Number of distinct positions: " << visitedPos << std::endl;
 }
 
 void Day06::solvePartTwo() {
-    initGrid();
+    auto pathLab{m_lab};
+    auto path{pathLab.getPath()};
 
-    auto obstructionPositions{0};
-    auto startPos{pos};
+    std::unordered_set<Position, PositionHash> obstructionPositions;
 
-    for (auto y{0}; y < m_grid.size(); ++y) {
-        for (auto x{0}; x < m_grid[0].size(); ++x) {
-            if (m_grid[y][x] == '.') {
-                m_grid[y][x] = '#';
+    auto testLab{m_lab};
+    for (const auto& possiblePos: path) {
+        if (possiblePos == m_lab.guardPos || obstructionPositions.contains(possiblePos))
+            continue;
 
-                std::unordered_set<Position, PositionHash> visitedPos;
+        testLab.grid[possiblePos.y][possiblePos.x] = '#';
 
-                while (true) {
-                    auto nextPos{getNextPos()};
+        std::unordered_set<PositionWithDir, PositionWithDirHash> visitedPos;
+        while (true) {
+            visitedPos.insert(PositionWithDir{testLab.guardPos.x, testLab.guardPos.y, testLab.dir});
 
-                    if (nextPos == invalidPos)
-                        goto end;
+            auto nextPos{testLab.getNextPos()};
 
-                    if (m_grid[nextPos.y][nextPos.x] == '#') {
-                        pos.dir = (pos.dir + 1) % 4;
-                    } else if (visitedPos.contains(nextPos)) {
-                        break;
-                    } else {
-                        visitedPos.insert(pos);
-                        pos = nextPos;
-                    }
-                }
-
-                ++obstructionPositions;
-
-                end:
-                m_grid[y][x] = '.';
-                pos = startPos;
+            if (nextPos == invalidPos)
+                break;
+            if (testLab.grid[nextPos.y][nextPos.x] == '#') {
+                testLab.turnRight();
+            } else if (visitedPos.contains(PositionWithDir(nextPos.x, nextPos.y, testLab.dir))) {
+                obstructionPositions.insert(possiblePos);
+                break;
+            } else {
+                testLab.guardPos = nextPos;
             }
         }
+
+        testLab.grid[possiblePos.y][possiblePos.x] = '.';
+        testLab.guardPos = m_lab.guardPos;
+        testLab.dir = m_lab.dir;
     }
 
-    std::cout << "Number of obstruction positions: " << obstructionPositions << std::endl;
+    std::cout << "Number of obstruction positions: " << obstructionPositions.size() << std::endl;
 }
 
-void Day06::initGrid() {
-    m_grid.clear();
-
+void Day06::initLab() {
     for (auto y{0}; y < m_inputLines.size(); ++y) {
         std::vector<char> line;
 
@@ -89,34 +78,78 @@ void Day06::initGrid() {
             if (c != '.' && c != '#') {
                 switch (c) {
                     case '^':
-                        pos.dir = Direction::UP;
+                        m_lab.dir = Direction::UP;
                         break;
                     case '>':
-                        pos.dir = Direction::RIGHT;
+                        m_lab.dir = Direction::RIGHT;
                         break;
                     case 'v':
-                        pos.dir = Direction::DOWN;
+                        m_lab.dir = Direction::DOWN;
                         break;
                     case '<':
-                        pos.dir = Direction::LEFT;
+                        m_lab.dir = Direction::LEFT;
                         break;
                     default:
                         throw std::runtime_error{"Char unknown"};
                 }
 
-                pos.x = x;
-                pos.y = y;
+                m_lab.guardPos.x = x;
+                m_lab.guardPos.y = y;
             }
 
             line.push_back(c);
         }
 
-        m_grid.push_back(line);
+        m_lab.grid.push_back(line);
     }
 }
 
-void Day06::printGrid() {
-    for (const auto& line: m_grid) {
+Day06::Position Day06::Lab::getNextPos() const {
+    Position nextPos{guardPos};
+
+    if (dir == Direction::UP)
+        --nextPos.y;
+    else if (dir == Direction::RIGHT)
+        ++nextPos.x;
+    else if (dir == Direction::DOWN)
+        ++nextPos.y;
+    else
+        --nextPos.x;
+
+    if (nextPos.x < 0 || nextPos.x > grid[0].size() - 1 || nextPos.y < 0 || nextPos.y > grid.size() - 1)
+        return invalidPos;
+
+    return nextPos;
+}
+
+
+void Day06::Lab::turnRight() {
+    dir = (dir + 1) % 4;
+}
+
+std::unordered_set<Day06::Position, Day06::PositionHash> Day06::Lab::getPath() {
+    std::unordered_set<Position, PositionHash> positions;
+
+    while (true) {
+        positions.insert(guardPos);
+        grid[guardPos.y][guardPos.x] = 'X';
+
+        auto nextPos{getNextPos()};
+        if (nextPos == invalidPos)
+            break;
+
+        if (grid[nextPos.y][nextPos.x] == '#') {
+            turnRight();
+        } else {
+            guardPos = nextPos;
+        }
+    }
+
+    return positions;
+}
+
+void Day06::Lab::printGrid() const {
+    for (const auto& line: grid) {
         for (const auto& c: line) {
             std::cout << c;
         }
@@ -127,20 +160,3 @@ void Day06::printGrid() {
     std::cout << std::endl;
 }
 
-Day06::Position Day06::getNextPos() const {
-    Position nextPos{pos};
-
-    if (pos.dir == Direction::UP)
-        --nextPos.y;
-    else if (pos.dir == Direction::RIGHT)
-        ++nextPos.x;
-    else if (pos.dir == Direction::DOWN)
-        ++nextPos.y;
-    else
-        --nextPos.x;
-
-    if (nextPos.x < 0 || nextPos.x > m_grid[0].size() - 1 || nextPos.y < 0 || nextPos.y > m_grid.size() - 1)
-        return invalidPos;
-
-    return nextPos;
-}

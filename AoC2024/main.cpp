@@ -37,7 +37,7 @@ void runAllDays() {
     allDays.push_back(std::make_unique<Day03>());
     allDays.push_back(std::make_unique<Day04>());
     allDays.push_back(std::make_unique<Day05>());
-    allDays.push_back(std::make_unique<Day06>());
+//    allDays.push_back(std::make_unique<Day06>());
     allDays.push_back(std::make_unique<Day07>());
 
     for (auto i{0}; i < allDays.size(); ++i) {
@@ -51,6 +51,6 @@ void runAllDays() {
 }
 
 int main() {
-    runDay(std::make_unique<Day07>());
+    runDay(std::make_unique<Day06>());
 //     runAllDays();
 }
