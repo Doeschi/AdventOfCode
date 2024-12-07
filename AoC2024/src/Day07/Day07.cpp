@@ -6,6 +6,7 @@
 #include "Day07.h"
 #include "../util/Util.h"
 
+
 Day07::Day07() : BaseDay{"day07.txt"} {
     initEquations();
 }
@@ -44,7 +45,7 @@ bool Day07::isSolvable(const Day07::Equation& equation, long long subResult, int
         } else if (op == '*') {
             subResult *= equation.values[index];
         } else if (op == '|') {
-            subResult *= static_cast<long long>(std::pow(10, std::to_string(equation.values[index]).size()));
+            subResult *= static_cast<long long>(std::pow(10, countDigits(equation.values[index])));
             subResult += equation.values[index];
         }
 
@@ -55,7 +56,7 @@ bool Day07::isSolvable(const Day07::Equation& equation, long long subResult, int
 
         // only make the recursive call if we are not yet at the last term
         // and the subResult has not exceeded the correct result yet
-        if (index < equation.values.size() - 1 && subResult < equation.result)
+        if (index < equation.values.size() - 1 && subResult <= equation.result)
             if (isSolvable(equation, subResult, index + 1, operators))
                 return true;
 
@@ -76,4 +77,18 @@ long long Day07::getCalibrationResul(const std::vector<char>& operators) const {
 
     return calibrationResul;
 }
+
+int Day07::countDigits(long long int number) {
+    if (number == 0)
+        return 1;
+
+    auto count{0};
+    while (number != 0) {
+        number /= 10;
+        ++count;
+    }
+
+    return count;
+}
+
 
