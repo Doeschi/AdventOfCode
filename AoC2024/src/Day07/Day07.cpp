@@ -12,11 +12,11 @@ Day07::Day07() : BaseDay{"day07.txt"} {
 }
 
 void Day07::solvePartOne() {
-    std::cout << "Total calibration result with + and *: " << getCalibrationResul({'+', '*'}) << std::endl;
+    std::cout << "Total calibration result with + and *: " << getCalibrationResult({'+', '*'}) << std::endl;
 }
 
 void Day07::solvePartTwo() {
-    std::cout << "Total calibration result with +, * and |: " << getCalibrationResul({'+', '*', '|'}) << std::endl;
+    std::cout << "Total calibration result with +, * and |: " << getCalibrationResult({'+', '*', '|'}) << std::endl;
 }
 
 void Day07::initEquations() {
@@ -67,7 +67,7 @@ bool Day07::isSolvable(const Day07::Equation& equation, long long subResult, int
     return false;
 }
 
-long long Day07::getCalibrationResul(const std::vector<char>& operators) const {
+long long Day07::getCalibrationResult(const std::vector<char>& operators) const {
     auto calibrationResul{0ll};
 
     for (const auto& equation: m_equations) {

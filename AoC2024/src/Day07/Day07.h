@@ -30,7 +30,7 @@ private:
     [[nodiscard]] bool
     isSolvable(const Equation& equation, long long subResult, int index, const std::vector<char>& operators) const;
 
-    [[nodiscard]] long long getCalibrationResul(const std::vector<char>& operators) const;
+    [[nodiscard]] long long getCalibrationResult(const std::vector<char>& operators) const;
 
     [[nodiscard]] static int countDigits(long long number);
 };
