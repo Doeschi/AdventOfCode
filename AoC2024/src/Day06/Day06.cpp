@@ -37,13 +37,14 @@ void Day06::solvePartOne() {
 }
 
 void Day06::solvePartTwo() {
+    initGrid();
+
     auto obstructionPositions{0};
+    auto startPos{pos};
 
     for (auto y{0}; y < m_grid.size(); ++y) {
         for (auto x{0}; x < m_grid[0].size(); ++x) {
-            initGrid();
-
-            if (m_grid[pos.y][pos.y] != '#' && (x != pos.x || y != pos.y)) {
+            if (m_grid[y][x] == '.') {
                 m_grid[y][x] = '#';
 
                 std::unordered_set<Position, PositionHash> visitedPos;
@@ -66,7 +67,9 @@ void Day06::solvePartTwo() {
 
                 ++obstructionPositions;
 
-                end:;
+                end:
+                m_grid[y][x] = '.';
+                pos = startPos;
             }
         }
     }

@@ -6,6 +6,10 @@
 #include <string>
 #include <vector>
 
-std::vector<std::string> splitString(const std::string& s, char delim);
+std::vector<std::string> splitString(const std::string& input, char delim);
 
-std::vector<int> splitStringToInt(const std::string& s, char delim);
+std::vector<int> splitStringToInt(const std::string& input, char delim);
+
+std::vector<long long> splitStringToLongLong(const std::string& input, char delim);
+
+void trim(std::string& str);
