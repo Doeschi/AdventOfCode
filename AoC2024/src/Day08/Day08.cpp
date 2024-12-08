@@ -30,7 +30,7 @@ void Day08::solvePartTwo() {
     std::unordered_set<Position, PositionHash> uniqueLocations;
 
     for (const auto& [frequency, antennas]: m_frequencies) {
-        auto antiNodes = getAntiNodesFromAntennas(antennas, 100);
+        auto antiNodes = getAntiNodesFromAntennas(antennas, m_maxIterations);
         uniqueLocations.insert(antiNodes.cbegin(), antiNodes.cend());
 
         // all antennas are anti nodes to
