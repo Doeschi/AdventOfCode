@@ -33,7 +33,7 @@ void Day07::initEquations() {
     }
 }
 
-bool Day07::isSolvable(const Day07::Equation& equation, long long subResult, int index,
+bool Day07::isSolvable(const Day07::Equation& equation, int64_t subResult, int index,
                        const std::vector<char>& operators) const {
 
     for (const auto& op: operators) {
@@ -67,7 +67,7 @@ bool Day07::isSolvable(const Day07::Equation& equation, long long subResult, int
     return false;
 }
 
-long long Day07::getCalibrationResult(const std::vector<char>& operators) const {
+int64_t Day07::getCalibrationResult(const std::vector<char>& operators) const {
     auto calibrationResul{0ll};
 
     for (const auto& equation: m_equations) {
@@ -78,7 +78,7 @@ long long Day07::getCalibrationResult(const std::vector<char>& operators) const 
     return calibrationResul;
 }
 
-int Day07::countDigits(long long int number) {
+int Day07::countDigits(int64_t number) {
     if (number == 0)
         return 1;
 

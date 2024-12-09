@@ -13,6 +13,7 @@
 #include "src/Day06/Day06.h"
 #include "src/Day07/Day07.h"
 #include "src/Day08/Day08.h"
+#include "src/Day09/Day09.h"
 
 void runDay(std::unique_ptr<BaseDay> day) {
     auto startPartOne = std::chrono::high_resolution_clock::now();
@@ -41,6 +42,7 @@ void runAllDays() {
     allDays.push_back(std::make_unique<Day06>());
     allDays.push_back(std::make_unique<Day07>());
     allDays.push_back(std::make_unique<Day08>());
+    allDays.push_back(std::make_unique<Day09>());
 
     for (auto i{0}; i < allDays.size(); ++i) {
         std::cout << "--------------- DAY " << std::format("{:2}", i + 1) << " ---------------" << std::endl;
@@ -53,6 +55,6 @@ void runAllDays() {
 }
 
 int main() {
-    runDay(std::make_unique<Day08>());
+    runDay(std::make_unique<Day09>());
 //    runAllDays();
 }
