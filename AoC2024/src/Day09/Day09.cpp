@@ -42,7 +42,7 @@ void Day09::solvePartTwo() {
     auto start{0};
     auto end{filesystem.size() - 1};
 
-    // loop through all the files, starting from the right and try to move them
+    // loop through all the files (starting from the right) and try to move them
     for (int i = static_cast<int>(diskMap.size()) - 1; i >= 0; i -= 2) {
         auto id = i / 2;
         auto nbrOfNeededBlocks = diskMap[i] - '0';
@@ -54,6 +54,7 @@ void Day09::solvePartTwo() {
         auto nbrOfFoundBlocks{0};
         auto firstFree{true};
 
+        // search free space
         for (int j = start; j < end; ++j) {
             if (filesystem[j] == freeSpace) {
                 ++nbrOfFoundBlocks;
