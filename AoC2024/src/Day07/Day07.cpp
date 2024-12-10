@@ -21,13 +21,13 @@ void Day07::solvePartTwo() {
 
 void Day07::initEquations() {
     for (const auto& line: m_inputLines) {
-        auto split = splitString(line, ':');
+        auto splitted = split<std::string>(line, ':');
 
-        auto result = std::stoll(split[0]);
+        auto result = std::stoll(splitted[0]);
 
-        auto valuesString = split[1];
+        auto valuesString = splitted[1];
         trim(valuesString);
-        auto values = splitStringToLongLong(valuesString, ' ');
+        auto values = split<int64_t>(valuesString, ' ');
 
         m_equations.push_back(Equation{result, values});
     }

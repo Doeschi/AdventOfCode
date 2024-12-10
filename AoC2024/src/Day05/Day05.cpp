@@ -46,7 +46,7 @@ void Day05::initInput() {
         if (line.empty())
             break;
 
-        auto pages = splitStringToInt(line, '|');
+        auto pages = split<int>(line, '|');
         if (pages.size() != 2)
             throw std::runtime_error("Only two pages per line allowed");
 
@@ -54,7 +54,7 @@ void Day05::initInput() {
     }
 
     for (auto i{index}; i < m_inputLines.size(); ++i) {
-        auto pages = splitStringToInt(m_inputLines[i], ',');
+        auto pages = split<int>(m_inputLines[i], ',');
         m_updates.push_back(Update{.pages = pages});
     }
 }

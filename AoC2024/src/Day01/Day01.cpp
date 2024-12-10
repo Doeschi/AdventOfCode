@@ -44,7 +44,7 @@ Day01::LocationLists Day01::getLists() const {
     LocationLists lists;
 
     for (auto& line: m_inputLines) {
-        auto const splitted = splitString(line, ',');
+        auto const splitted = split<std::string>(line, ',');
 
         if (splitted.size() != 2) {
             std::cerr << "Two locations IDs per line are required, but " << splitted.size() << " were given\n";

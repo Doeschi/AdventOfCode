@@ -6,11 +6,17 @@
 #include <string>
 #include <vector>
 
-std::vector<std::string> splitString(const std::string& input, char delim);
+template<typename T>
+std::vector<T> split(const std::string& str, char delimiter);
 
-std::vector<int> splitStringToInt(const std::string& input, char delim);
+template<>
+std::vector<std::string> split<std::string>(const std::string& str, char delimiter);
 
-std::vector<long long> splitStringToLongLong(const std::string& input, char delim);
+template<>
+std::vector<int> split<int>(const std::string& str, char delimiter);
+
+template<>
+std::vector<long long> split<long long>(const std::string& str, char delimiter);
 
 void trim(std::string& str);
 

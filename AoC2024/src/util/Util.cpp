@@ -4,53 +4,49 @@
 #include <sstream>
 #include <vector>
 #include <string>
-#include <iostream>
 
 #include "Util.h"
 
-std::vector<std::string> splitString(const std::string& input, const char delim) {
+template<typename T>
+std::vector<T> split(const std::string& str, char delimiter) {
+    static_assert(std::is_same_v<T, void>, "Unsupported type for split function.");
+    return {};
+}
+
+template<>
+std::vector<std::string> split<std::string>(const std::string& str, char delimiter) {
     std::vector<std::string> result;
-    std::stringstream ss(input);
+    std::stringstream ss(str);
     std::string token;
 
-    while (std::getline(ss, token, delim)) {
+    while (std::getline(ss, token, delimiter)) {
         result.push_back(token);
     }
 
     return result;
 }
 
-std::vector<int> splitStringToInt(const std::string& input, char const delim) {
+template<>
+std::vector<int> split<int>(const std::string& str, char delimiter) {
     std::vector<int> result;
-    std::stringstream ss(input);
+    std::stringstream ss(str);
     std::string token;
 
-    while (std::getline(ss, token, delim)) {
-        try {
-            auto const intVal = std::stoi(token);
-            result.push_back(intVal);
-        } catch (const std::logic_error& e) {
-            std::cerr << "Error while converting " << token << " to int: " << e.what() << std::endl;
-            exit(420);
-        }
+    while (std::getline(ss, token, delimiter)) {
+        result.push_back(std::stoi(token));
     }
 
     return result;
 }
 
-std::vector<long long> splitStringToLongLong(const std::string& input, char delim) {
+template<>
+std::vector<long long> split<long long>(const std::string& str, char delimiter) {
     std::vector<long long> result;
-    std::stringstream ss(input);
+    std::stringstream ss(str);
     std::string token;
 
-    while (std::getline(ss, token, delim)) {
-        try {
-            auto const val = std::stoll(token);
-            result.push_back(val);
-        } catch (const std::logic_error& e) {
-            std::cerr << "Error while converting " << token << " to long long: " << e.what() << std::endl;
-            exit(420);
-        }
+    while (std::getline(ss, token, delimiter)) {
+        result.push_back(std::stoll(token));
     }
 
     return result;

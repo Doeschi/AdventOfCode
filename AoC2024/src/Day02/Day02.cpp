@@ -14,7 +14,7 @@ void Day02::solvePartOne() {
     auto safeReports{0};
 
     for (const auto& line: m_inputLines) {
-        auto levels = splitStringToInt(line, ' ');
+        auto levels = split<int>(line, ' ');
 
         if (isSafe(levels))
             ++safeReports;
@@ -27,7 +27,7 @@ void Day02::solvePartTwo() {
     auto safeReports{0};
 
     for (const auto& line: m_inputLines) {
-        auto levels = splitStringToInt(line, ' ');
+        auto levels = split<int>(line, ' ');
 
         if (isSafe(levels)) {
             ++safeReports;
