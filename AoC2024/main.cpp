@@ -57,6 +57,6 @@ void runAllDays() {
 }
 
 int main() {
-//    runDay(std::make_unique<Day10>());
-    runAllDays();
+    runDay(std::make_unique<Day08>());
+//    runAllDays();
 }

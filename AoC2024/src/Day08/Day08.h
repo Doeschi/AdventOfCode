@@ -27,9 +27,9 @@ private:
 
     void initFrequencies();
 
-    [[nodiscard]] std::unordered_set<Position, PositionHash>
-    getAntiNodes(const Position& pos, int xDiff, int yDiff, int maxIterations) const;
+    void getAntiNodes(const Position& pos, int xDiff, int yDiff, int maxIterations,
+                      std::unordered_set<Position, PositionHash>& uniqueLocations) const;
 
-    [[nodiscard]] std::unordered_set<Position, PositionHash>
-    getAntiNodesFromAntennas(const std::vector<Position>& antennas, int maxIterations) const;
+    void getAntiNodesFromAntennas(const std::vector<Position>& antennas, int maxIterations,
+                                  std::unordered_set<Position, PositionHash>& uniqueLocations) const;
 };
