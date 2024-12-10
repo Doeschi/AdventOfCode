@@ -33,16 +33,17 @@ void Day06::solvePartTwo() {
     auto pathLab{m_lab};
     auto path{pathLab.getPath()};
 
-    std::unordered_set<Position, PositionHash> obstructionPositions;
+    path.erase(m_lab.guardPos);
+    std::unordered_set<Position, PositionHash> validPositions;
 
     auto testLab{m_lab};
     for (const auto& possiblePos: path) {
-        if (possiblePos == m_lab.guardPos || obstructionPositions.contains(possiblePos))
+        if (validPositions.contains(possiblePos))
             continue;
 
         testLab.grid[possiblePos.y][possiblePos.x] = '#';
-
         std::unordered_set<PositionWithDir, PositionWithDirHash> visitedPos;
+
         while (true) {
             visitedPos.insert(PositionWithDir{testLab.guardPos.x, testLab.guardPos.y, testLab.dir});
 
@@ -53,7 +54,7 @@ void Day06::solvePartTwo() {
             if (testLab.grid[nextPos.y][nextPos.x] == '#') {
                 testLab.turnRight();
             } else if (visitedPos.contains(PositionWithDir(nextPos.x, nextPos.y, testLab.dir))) {
-                obstructionPositions.insert(possiblePos);
+                validPositions.insert(possiblePos);
                 break;
             } else {
                 testLab.guardPos = nextPos;
@@ -65,7 +66,7 @@ void Day06::solvePartTwo() {
         testLab.dir = m_lab.dir;
     }
 
-    std::cout << "Number of obstruction positions: " << obstructionPositions.size() << std::endl;
+    std::cout << "Number of valid positions: " << validPositions.size() << std::endl;
 }
 
 void Day06::initLab() {
@@ -137,12 +138,10 @@ std::unordered_set<Day06::Position, Day06::PositionHash> Day06::Lab::getPath() {
         auto nextPos{getNextPos()};
         if (nextPos == invalidPos)
             break;
-
-        if (grid[nextPos.y][nextPos.x] == '#') {
+        if (grid[nextPos.y][nextPos.x] == '#')
             turnRight();
-        } else {
+        else
             guardPos = nextPos;
-        }
     }
 
     return positions;

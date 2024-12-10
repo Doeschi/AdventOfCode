@@ -16,20 +16,27 @@
 #include "src/Day09/Day09.h"
 #include "src/Day10/Day10.h"
 
-void runDay(std::unique_ptr<BaseDay> day) {
+std::string getDurationText(const std::chrono::time_point<std::chrono::steady_clock>& start,
+                            const std::chrono::time_point<std::chrono::steady_clock>& end) {
+
+    auto duration = end - start;
+    if (duration.count() >= 1'000'000)
+        return std::to_string(std::chrono::duration_cast<std::chrono::milliseconds>(duration).count()) + "ms";
+    else
+        return std::to_string(std::chrono::duration_cast<std::chrono::microseconds>(duration).count()) + "µs";
+}
+
+void runDay(BaseDay& day) {
     auto startPartOne = std::chrono::high_resolution_clock::now();
-    day->solvePartOne();
+    day.solvePartOne();
     auto endPartOne = std::chrono::high_resolution_clock::now();
 
     auto startPartTwo = std::chrono::high_resolution_clock::now();
-    day->solvePartTwo();
+    day.solvePartTwo();
     auto endPartTwo = std::chrono::high_resolution_clock::now();
 
-    auto durationPartOne = std::chrono::duration_cast<std::chrono::milliseconds>(endPartOne - startPartOne);
-    auto durationPartTwo = std::chrono::duration_cast<std::chrono::milliseconds>(endPartTwo - startPartTwo);
-
-    std::cout << "Duration part one: " << durationPartOne.count() << "ms" << std::endl;
-    std::cout << "Duration part two: " << durationPartTwo.count() << "ms" << std::endl;
+    std::cout << "Duration part one: " << getDurationText(startPartOne, endPartOne) << "\n";
+    std::cout << "Duration part two: " << getDurationText(startPartTwo, endPartTwo) << "\n";
 }
 
 void runAllDays() {
@@ -46,17 +53,24 @@ void runAllDays() {
     allDays.push_back(std::make_unique<Day09>());
     allDays.push_back(std::make_unique<Day10>());
 
+    auto start = std::chrono::high_resolution_clock::now();
     for (auto i{0}; i < allDays.size(); ++i) {
-        std::cout << "--------------- DAY " << std::format("{:2}", i + 1) << " ---------------" << std::endl;
+        std::cout << "--------------- DAY " << std::format("{:2}", i + 1) << " ---------------\n";
 
-        runDay(std::move(allDays[i]));
+        runDay(*allDays[i]);
 
         // new line to split days
-        std::cout << std::endl;
+        std::cout << "\n";
     }
+    auto end = std::chrono::high_resolution_clock::now();
+
+    std::cout << "--------------------------------------\n";
+    std::cout << "It took " << getDurationText(start, end) << " to solve " << std::to_string(allDays.size())
+              << "/25 days\n";
 }
 
 int main() {
-    runDay(std::make_unique<Day08>());
-//    runAllDays();
+    auto d = std::make_shared<Day04>();
+//    runDay(*d);
+    runAllDays();
 }
