@@ -5,6 +5,7 @@
 
 #include <string>
 #include <vector>
+#include <array>
 
 template<typename T>
 std::vector<T> split(const std::string& str, char delimiter);
@@ -35,3 +36,18 @@ struct PositionHash {
         return h1 ^ (h2 << 1);
     }
 };
+
+static constexpr std::array<Position, 4> directNeighborOffsets{Position{-1, 0},
+                                                               Position{0, -1},
+                                                               Position{1, 0},
+                                                               Position{0, 1}};
+
+
+static constexpr std::array<Position, 8> allNeighborOffsets{Position{-1, -1},
+                                                            Position{0, -1},
+                                                            Position{1, -1},
+                                                            Position{-1, 0},
+                                                            Position{1, 0},
+                                                            Position{-1, 1},
+                                                            Position{0, 1},
+                                                            Position{1, 1}};

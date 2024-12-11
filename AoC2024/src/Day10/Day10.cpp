@@ -64,17 +64,17 @@ std::vector<Position> Day10::getPeaks(Position pos) const {
         return std::vector<Position>{pos};
 
     std::vector<Position> peaks{};
+    for (const auto& offset: directNeighborOffsets) {
+        auto x = pos.x + offset.x;
+        auto y = pos.y + offset.y;
 
-    for (int y = pos.y - 1; y < pos.y + 2; ++y) {
-        for (int x = pos.x - 1; x < pos.x + 2; ++x) {
-            if (x < 0 || x > m_width - 1 || y < 0 || y > m_height - 1)
-                continue;
+        if (x < 0 || x > m_width - 1 || y < 0 || y > m_height - 1)
+            continue;
 
-            if ((x != pos.x && y == pos.y) || (x == pos.x && y != pos.y)) {
-                if (level + 1 == m_map[y][x]) {
-                    auto foundPeaks = getPeaks(Position{x, y});
-                    peaks.insert(peaks.end(), foundPeaks.begin(), foundPeaks.end());
-                }
+        if ((x != pos.x && y == pos.y) || (x == pos.x && y != pos.y)) {
+            if (level + 1 == m_map[y][x]) {
+                auto foundPeaks = getPeaks(Position{x, y});
+                peaks.insert(peaks.end(), foundPeaks.begin(), foundPeaks.end());
             }
         }
     }
