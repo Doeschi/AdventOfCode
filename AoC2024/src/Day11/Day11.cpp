@@ -34,7 +34,7 @@ int64_t Day11::countStones(const int numberOfBlinks) const {
             if (number == 0) {
                 newStones[number + 1] += amount;
             } else {
-                auto digits = countUDecimalDigits(number);
+                auto digits = countDecimalDigits(number);
 
                 if (digits % 2 == 0) {
                     auto first = number / powerOfTen[(digits / 2)];
@@ -53,9 +53,8 @@ int64_t Day11::countStones(const int numberOfBlinks) const {
 
     auto nbrOfStones{0ll};
 
-    for (const auto& [number, amount]: currentStones) {
+    for (const auto& [number, amount]: currentStones)
         nbrOfStones += amount;
-    }
 
     return nbrOfStones;
 }

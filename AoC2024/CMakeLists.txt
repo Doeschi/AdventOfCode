@@ -12,44 +12,31 @@ if(WIN32)
     endif()
 endif(WIN32)
 
-add_executable(AoC2024 main.cpp
+# Collect all source files
+file(GLOB SOURCES
+        main.cpp
         src/RandomTests.cpp
-        src/util/Util.cpp
-        src/util/Util.h
-        src/BaseDay/BaseDay.cpp
-        src/BaseDay/BaseDay.h
-        src/Day01/Day01.cpp
-        src/Day01/Day01.h
-        src/Day02/Day02.cpp
-        src/Day02/Day02.h
-        src/Day03/Day03.cpp
-        src/Day03/Day03.h
-        src/Day04/Day04.cpp
-        src/Day04/Day04.h
-        src/Day05/Day05.cpp
-        src/Day05/Day05.h
-        src/Day06/Day06.cpp
-        src/Day06/Day06.h
-        src/Day07/Day07.cpp
-        src/Day07/Day07.h
-        src/Day08/Day08.cpp
-        src/Day08/Day08.h
-        src/Day09/Day09.cpp
-        src/Day09/Day09.h
-        src/Day10/Day10.cpp
-        src/Day10/Day10.h
-        src/Day11/Day11.cpp
-        src/Day11/Day11.h
+        src/util/*.cpp
+        src/util/*.h
+        src/BaseDay/*.cpp
+        src/BaseDay/*.h
 )
 
-file(COPY src/Day01/day01.txt DESTINATION ${CMAKE_BINARY_DIR}/Debug)
-file(COPY src/Day02/day02.txt DESTINATION ${CMAKE_BINARY_DIR}/Debug)
-file(COPY src/Day03/day03.txt DESTINATION ${CMAKE_BINARY_DIR}/Debug)
-file(COPY src/Day04/day04.txt DESTINATION ${CMAKE_BINARY_DIR}/Debug)
-file(COPY src/Day05/day05.txt DESTINATION ${CMAKE_BINARY_DIR}/Debug)
-file(COPY src/Day06/day06.txt DESTINATION ${CMAKE_BINARY_DIR}/Debug)
-file(COPY src/Day07/day07.txt DESTINATION ${CMAKE_BINARY_DIR}/Debug)
-file(COPY src/Day08/day08.txt DESTINATION ${CMAKE_BINARY_DIR}/Debug)
-file(COPY src/Day09/day09.txt DESTINATION ${CMAKE_BINARY_DIR}/Debug)
-file(COPY src/Day10/day10.txt DESTINATION ${CMAKE_BINARY_DIR}/Debug)
-file(COPY src/Day11/day11.txt DESTINATION ${CMAKE_BINARY_DIR}/Debug)
+# Collect DayXX files
+file(GLOB DAY_SOURCES "src/Day*/Day*.cpp" "src/Day*/Day*.h")
+
+# Append DayXX files to the SOURCES list
+list(APPEND SOURCES ${DAY_SOURCES})
+
+# Create the executable
+add_executable(AoC2024 ${SOURCES})
+
+# Copy textfiles to bin directory
+file(GLOB DAY_TXT "src/Day*/Day*.txt")
+
+foreach(FILE ${DAY_TXT})
+    file(COPY ${FILE} DESTINATION ${CMAKE_BINARY_DIR}/Debug)
+endforeach()
+
+
+
