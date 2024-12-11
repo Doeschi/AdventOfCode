@@ -45,7 +45,7 @@ bool Day07::isSolvable(const Day07::Equation& equation, int64_t subResult, int i
         } else if (op == '*') {
             subResult *= equation.values[index];
         } else if (op == '|') {
-            subResult *= powerOfTen[countDigits(equation.values[index])];
+            subResult *= powerOfTen[countDecimalDigits(equation.values[index])];
             subResult += equation.values[index];
         }
 
@@ -76,19 +76,6 @@ int64_t Day07::getCalibrationResult(const std::vector<char>& operators) const {
     }
 
     return calibrationResul;
-}
-
-int Day07::countDigits(int64_t number) {
-    if (number == 0)
-        return 1;
-
-    auto count{0};
-    while (number != 0) {
-        number /= 10;
-        ++count;
-    }
-
-    return count;
 }
 
 

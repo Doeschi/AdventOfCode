@@ -7,12 +7,6 @@
 
 #include "Util.h"
 
-template<typename T>
-std::vector<T> split(const std::string& str, char delimiter) {
-    static_assert(std::is_same_v<T, void>, "Unsupported type for split function.");
-    return {};
-}
-
 template<>
 std::vector<std::string> split<std::string>(const std::string& str, char delimiter) {
     std::vector<std::string> result;
@@ -40,13 +34,26 @@ std::vector<int> split<int>(const std::string& str, char delimiter) {
 }
 
 template<>
-std::vector<long long> split<long long>(const std::string& str, char delimiter) {
-    std::vector<long long> result;
+std::vector<int64_t> split<int64_t>(const std::string& str, char delimiter) {
+    std::vector<int64_t> result;
     std::stringstream ss(str);
     std::string token;
 
     while (std::getline(ss, token, delimiter)) {
         result.push_back(std::stoll(token));
+    }
+
+    return result;
+}
+
+template<>
+std::vector<uint64_t> split<uint64_t>(const std::string& str, char delimiter) {
+    std::vector<uint64_t> result;
+    std::stringstream ss(str);
+    std::string token;
+
+    while (std::getline(ss, token, delimiter)) {
+        result.push_back(std::stoull(token));
     }
 
     return result;
