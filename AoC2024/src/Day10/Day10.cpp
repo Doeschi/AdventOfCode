@@ -15,13 +15,13 @@ Day10::Day10() : BaseDay{"day10.txt"} {
 }
 
 void Day10::solvePartOne() {
-    auto trailheadScore{0};
+    size_t trailheadScore{0};
 
     for (int y = 0; y < m_map.size(); ++y) {
         for (int x = 0; x < m_map[y].size(); ++x) {
             if (m_map[y][x] == 0) {
-                auto peaks = getPeaks(Position{x, y});
-                std::unordered_set<Position, PositionHash> uniquePeaks;
+                auto peaks = getPeaks(Point2D{x, y});
+                std::unordered_set<Point2D, Point2DHash> uniquePeaks;
                 uniquePeaks.insert(peaks.begin(), peaks.end());
 
                 trailheadScore += uniquePeaks.size();
@@ -38,7 +38,7 @@ void Day10::solvePartTwo() {
     for (int y = 0; y < m_map.size(); ++y) {
         for (int x = 0; x < m_map[y].size(); ++x) {
             if (m_map[y][x] == 0) {
-                auto peaks = getPeaks(Position{x, y});
+                auto peaks = getPeaks(Point2D{x, y});
                 trailheadRating += peaks.size();
             }
         }
@@ -57,13 +57,13 @@ void Day10::initMap() {
     }
 }
 
-std::vector<Position> Day10::getPeaks(Position pos) const {
+std::vector<Point2D> Day10::getPeaks(Point2D pos) const {
     auto level = m_map[pos.y][pos.x];
 
     if (level == 9)
-        return std::vector<Position>{pos};
+        return std::vector<Point2D>{pos};
 
-    std::vector<Position> peaks{};
+    std::vector<Point2D> peaks{};
     for (const auto& offset: directNeighborOffsets) {
         auto x = pos.x + offset.x;
         auto y = pos.y + offset.y;
@@ -73,7 +73,7 @@ std::vector<Position> Day10::getPeaks(Position pos) const {
 
         if ((x != pos.x && y == pos.y) || (x == pos.x && y != pos.y)) {
             if (level + 1 == m_map[y][x]) {
-                auto foundPeaks = getPeaks(Position{x, y});
+                auto foundPeaks = getPeaks(Point2D{x, y});
                 peaks.insert(peaks.end(), foundPeaks.begin(), foundPeaks.end());
             }
         }

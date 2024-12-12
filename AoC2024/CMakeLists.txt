@@ -36,6 +36,7 @@ file(GLOB DAY_TXT "src/Day*/Day*.txt")
 
 foreach(FILE ${DAY_TXT})
     file(COPY ${FILE} DESTINATION ${CMAKE_BINARY_DIR}/Debug)
+    file(COPY ${FILE} DESTINATION ${CMAKE_BINARY_DIR}/Release)
 endforeach()
 
 

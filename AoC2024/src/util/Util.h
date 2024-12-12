@@ -62,15 +62,25 @@ void trim(std::string& str);
 
 
 /* TYPES AND CONSTANTS */
-struct Position {
+struct Point2D {
     int x;
     int y;
 
-    bool operator==(const Position& other) const = default;
+    bool operator==(const Point2D& other) const = default;
 };
 
-struct PositionHash {
-    std::size_t operator()(const Position& p) const {
+struct FPoint2D {
+    float x;
+    float y;
+
+    bool operator==(const FPoint2D& other) const {
+        return std::fabs(x - other.x) < std::numeric_limits<float>::epsilon() &&
+               std::fabs(y - other.y) < std::numeric_limits<float>::epsilon();
+    };
+};
+
+struct Point2DHash {
+    std::size_t operator()(const Point2D& p) const {
         std::size_t h1 = std::hash<int>()(p.x);
         std::size_t h2 = std::hash<int>()(p.y);
 
@@ -78,20 +88,20 @@ struct PositionHash {
     }
 };
 
-static constexpr std::array<Position, 4> directNeighborOffsets{Position{-1, 0},
-                                                               Position{0, -1},
-                                                               Position{1, 0},
-                                                               Position{0, 1}};
+static constexpr std::array<Point2D, 4> directNeighborOffsets{Point2D{-1, 0},
+                                                              Point2D{0, -1},
+                                                              Point2D{1, 0},
+                                                              Point2D{0, 1}};
 
 
-static constexpr std::array<Position, 8> allNeighborOffsets{Position{-1, -1},
-                                                            Position{0, -1},
-                                                            Position{1, -1},
-                                                            Position{-1, 0},
-                                                            Position{1, 0},
-                                                            Position{-1, 1},
-                                                            Position{0, 1},
-                                                            Position{1, 1}};
+static constexpr std::array<Point2D, 8> allNeighborOffsets{Point2D{-1, -1},
+                                                           Point2D{0, -1},
+                                                           Point2D{1, -1},
+                                                           Point2D{-1, 0},
+                                                           Point2D{1, 0},
+                                                           Point2D{-1, 1},
+                                                           Point2D{0, 1},
+                                                           Point2D{1, 1}};
 
 static constexpr std::array<int64_t, 19> powerOfTen{
         1,

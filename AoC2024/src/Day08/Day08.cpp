@@ -16,7 +16,7 @@ Day08::Day08() : BaseDay{"day08.txt"} {
 }
 
 void Day08::solvePartOne() {
-    std::unordered_set<Position, PositionHash> uniqueLocations;
+    std::unordered_set<Point2D, Point2DHash> uniqueLocations;
 
     for (const auto& [frequency, antennas]: m_frequencies)
         getAntiNodesFromAntennas(antennas, 1, uniqueLocations);
@@ -25,7 +25,7 @@ void Day08::solvePartOne() {
 }
 
 void Day08::solvePartTwo() {
-    std::unordered_set<Position, PositionHash> uniqueLocations;
+    std::unordered_set<Point2D, Point2DHash> uniqueLocations;
 
     for (const auto& [frequency, antennas]: m_frequencies) {
         getAntiNodesFromAntennas(antennas, m_maxIterations, uniqueLocations);
@@ -47,13 +47,13 @@ void Day08::initFrequencies() {
             auto c = m_inputLines[y][x];
 
             if (c != '.')
-                m_frequencies[c].push_back(Position{x, y});
+                m_frequencies[c].push_back(Point2D{x, y});
         }
     }
 }
 
-void Day08::getAntiNodesFromAntennas(const std::vector<Position>& antennas, const int maxIterations,
-                                     std::unordered_set<Position, PositionHash>& uniqueLocations) const {
+void Day08::getAntiNodesFromAntennas(const std::vector<Point2D>& antennas, const int maxIterations,
+                                     std::unordered_set<Point2D, Point2DHash>& uniqueLocations) const {
     for (int i = 0; i < antennas.size() - 1; ++i) {
         auto& first = antennas[i];
 
@@ -69,10 +69,10 @@ void Day08::getAntiNodesFromAntennas(const std::vector<Position>& antennas, cons
     }
 }
 
-void Day08::getAntiNodes(const Position& pos, const int xDiff, const int yDiff, const int maxIterations,
-                         std::unordered_set<Position, PositionHash>& uniqueLocations) const {
+void Day08::getAntiNodes(const Point2D& pos, const int xDiff, const int yDiff, const int maxIterations,
+                         std::unordered_set<Point2D, Point2DHash>& uniqueLocations) const {
     for (int i = 1; i < maxIterations + 1; ++i) {
-        Position location{pos.x + (xDiff * i), pos.y + (yDiff * i)};
+        Point2D location{pos.x + (xDiff * i), pos.y + (yDiff * i)};
 
         if (location.x >= 0 && location.x < m_gridWidth && location.y >= 0 &&
             location.y < m_gridHeight)

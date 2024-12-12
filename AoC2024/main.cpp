@@ -16,15 +16,16 @@
 #include "src/Day09/Day09.h"
 #include "src/Day10/Day10.h"
 #include "src/Day11/Day11.h"
+#include "src/Day12/Day12.h"
 
 std::string getDurationText(const std::chrono::time_point<std::chrono::steady_clock>& start,
                             const std::chrono::time_point<std::chrono::steady_clock>& end) {
 
     auto duration = end - start;
     if (duration.count() >= 1'000'000)
-        return std::to_string(std::chrono::duration_cast<std::chrono::milliseconds>(duration).count()) + "ms";
+        return std::format("{}, ms", std::chrono::duration_cast<std::chrono::milliseconds>(duration).count());
     else
-        return std::to_string(std::chrono::duration_cast<std::chrono::microseconds>(duration).count()) + "µs";
+        return std::format("{}, µs", std::chrono::duration_cast<std::chrono::microseconds>(duration).count());
 }
 
 void runDay(BaseDay& day) {
@@ -53,6 +54,7 @@ void runAllDays() {
     allDays.push_back(std::make_unique<Day08>());
     allDays.push_back(std::make_unique<Day09>());
     allDays.push_back(std::make_unique<Day10>());
+    allDays.push_back(std::make_unique<Day11>());
 
     auto start = std::chrono::high_resolution_clock::now();
     for (auto i{0}; i < allDays.size(); ++i) {
@@ -71,7 +73,7 @@ void runAllDays() {
 }
 
 int main() {
-    auto d = std::make_shared<Day11>();
+    auto d = std::make_shared<Day12>();
     runDay(*d);
 //    runAllDays();
 }
