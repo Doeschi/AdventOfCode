@@ -14,19 +14,7 @@ Day06::Day06() : BaseDay{"day06.txt"} {
 
 void Day06::solvePartOne() {
     auto lab{m_lab};
-
-    // walk the path
-    lab.getPath();
-
-    auto visitedPos{0};
-    for (const auto& line: lab.grid) {
-        for (const auto& c: line) {
-            if (c == 'X')
-                ++visitedPos;
-        }
-    }
-
-    std::cout << "Number of distinct positions: " << visitedPos << std::endl;
+    std::cout << "Number of distinct positions: " << lab.getPath().size() << std::endl;
 }
 
 void Day06::solvePartTwo() {
@@ -133,7 +121,6 @@ std::unordered_set<Day06::Position, Day06::PositionHash> Day06::Lab::getPath() {
 
     while (true) {
         positions.insert(guardPos);
-        grid[guardPos.y][guardPos.x] = 'X';
 
         auto nextPos{getNextPos()};
         if (nextPos == invalidPos)

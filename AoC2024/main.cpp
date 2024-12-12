@@ -23,9 +23,9 @@ std::string getDurationText(const std::chrono::time_point<std::chrono::steady_cl
 
     auto duration = end - start;
     if (duration.count() >= 1'000'000)
-        return std::format("{}, ms", std::chrono::duration_cast<std::chrono::milliseconds>(duration).count());
+        return std::format("{} ms", std::chrono::duration_cast<std::chrono::milliseconds>(duration).count());
     else
-        return std::format("{}, µs", std::chrono::duration_cast<std::chrono::microseconds>(duration).count());
+        return std::format("{} µs", std::chrono::duration_cast<std::chrono::microseconds>(duration).count());
 }
 
 void runDay(BaseDay& day) {
@@ -55,6 +55,7 @@ void runAllDays() {
     allDays.push_back(std::make_unique<Day09>());
     allDays.push_back(std::make_unique<Day10>());
     allDays.push_back(std::make_unique<Day11>());
+    allDays.push_back(std::make_unique<Day12>());
 
     auto start = std::chrono::high_resolution_clock::now();
     for (auto i{0}; i < allDays.size(); ++i) {
@@ -73,7 +74,7 @@ void runAllDays() {
 }
 
 int main() {
-    auto d = std::make_shared<Day12>();
+    auto d = std::make_shared<Day06>();
     runDay(*d);
 //    runAllDays();
 }
