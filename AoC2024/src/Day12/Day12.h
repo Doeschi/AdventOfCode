@@ -18,32 +18,52 @@ public:
     void solvePartTwo() override;
 
 private:
-    struct Edge {
-        FPoint2D p1;
-        FPoint2D p2;
+    struct EdgePiece {
+        Point2D inner{};
+        Point2D outer{};
+        std::shared_ptr<int> identifier{std::make_shared<int>(invalidIdentifier)}; // not part of '==' or hash
 
-        bool merge(const Edge& edge);
+        static constexpr int invalidIdentifier = 1000000;
+
+        bool operator==(const EdgePiece& other) const {
+            return inner == other.inner && outer == other.outer;
+        };
+    };
+
+    struct EdgePieceHash {
+        std::size_t operator()(const EdgePiece& e) const {
+            std::size_t h1 = std::hash<int>()(e.inner.x);
+            std::size_t h2 = std::hash<int>()(e.inner.y);
+            std::size_t h3 = std::hash<int>()(e.outer.x);
+            std::size_t h4 = std::hash<int>()(e.outer.y);
+
+            return h1 ^ (h2 << 1) ^ (h3 << 2) ^ (h4 << 3);
+        }
+    };
+
+    struct GardenPlots {
+        std::vector<std::vector<char>> plots;
+        size_t width;
+        size_t height;
     };
 
     struct Region {
+    public:
         std::unordered_set<Point2D, Point2DHash> plots;
-        std::vector<Edge> edges;
+        std::unordered_set<EdgePiece, EdgePieceHash> edgePieces;
 
-        [[nodiscard]] int getPerimeter() const;
+        explicit Region(const GardenPlots& gardenPlots, Point2D pos);
 
-        void findEdges();
+    private:
+        void searchPlots(const Day12::GardenPlots& gardenPlots, Point2D currentPlot);
 
-        void insertEdge(Edge edge);
+        void matchEdges();
     };
 
-    size_t m_width;
-    size_t m_height;
-    std::vector<std::vector<char>> m_gardenPlots;
+    GardenPlots m_gardenPlots;
     std::vector<Region> m_regions;
 
     void initGardenPlots();
 
     void initRegions();
-
-    void getPlotsOfRegion(const Point2D& currentPlot, std::unordered_set<Point2D, Point2DHash>& plots) const;
 };

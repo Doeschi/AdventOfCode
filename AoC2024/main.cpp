@@ -74,7 +74,7 @@ void runAllDays() {
 }
 
 int main() {
-    auto d = std::make_shared<Day06>();
+    auto d = std::make_shared<Day12>();
     runDay(*d);
 //    runAllDays();
 }

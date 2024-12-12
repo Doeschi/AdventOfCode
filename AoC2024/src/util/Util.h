@@ -67,6 +67,10 @@ struct Point2D {
     int y;
 
     bool operator==(const Point2D& other) const = default;
+
+    Point2D operator+(const Point2D& other) const {
+        return Point2D{x + other.x, y + other.y};
+    }
 };
 
 struct FPoint2D {

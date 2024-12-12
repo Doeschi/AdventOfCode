@@ -22,19 +22,16 @@ void Day06::solvePartTwo() {
     auto path{pathLab.getPath()};
 
     path.erase(m_lab.guardPos);
-    std::unordered_set<Position, PositionHash> validPositions;
+    auto validPositions{0};
 
     auto testLab{m_lab};
     for (const auto& possiblePos: path) {
-        if (validPositions.contains(possiblePos))
-            continue;
 
         testLab.grid[possiblePos.y][possiblePos.x] = '#';
         std::unordered_set<PositionWithDir, PositionWithDirHash> visitedPos;
 
         while (true) {
             visitedPos.insert(PositionWithDir{testLab.guardPos.x, testLab.guardPos.y, testLab.dir});
-
             auto nextPos{testLab.getNextPos()};
 
             if (nextPos == invalidPos)
@@ -42,7 +39,7 @@ void Day06::solvePartTwo() {
             if (testLab.grid[nextPos.y][nextPos.x] == '#') {
                 testLab.turnRight();
             } else if (visitedPos.contains(PositionWithDir(nextPos.x, nextPos.y, testLab.dir))) {
-                validPositions.insert(possiblePos);
+                ++validPositions;
                 break;
             } else {
                 testLab.guardPos = nextPos;
@@ -54,7 +51,7 @@ void Day06::solvePartTwo() {
         testLab.dir = m_lab.dir;
     }
 
-    std::cout << "Number of valid positions: " << validPositions.size() << std::endl;
+    std::cout << "Number of valid positions: " << validPositions << std::endl;
 }
 
 void Day06::initLab() {
@@ -145,4 +142,3 @@ void Day06::Lab::printGrid() const {
 
     std::cout << std::endl;
 }
-
