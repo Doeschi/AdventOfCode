@@ -79,7 +79,7 @@ void Day12::Region::searchPlots(const Day12::GardenPlots& gardenPlots, const Poi
     plots.insert(currentPlot);
 
     for (const auto& offset: directNeighborOffsets) {
-        Point2D neighbor{currentPlot.x + offset.x, currentPlot.y + offset.y};
+        Point2D neighbor = currentPlot + offset;
 
         if (neighbor.x < 0 || neighbor.x > gardenPlots.width - 1 || neighbor.y < 0 ||
             neighbor.y > gardenPlots.height - 1) {
@@ -98,8 +98,8 @@ void Day12::Region::matchEdges() {
     auto identifier{0};
 
     for (const auto& edgePiece: edgePieces) {
-        if (*edgePiece.identifier != EdgePiece::invalidIdentifier)
-            continue;
+        *edgePiece.identifier = identifier;
+        ++identifier;
 
         for (auto& innerOffset: directNeighborOffsets) {
             for (auto& outerOffset: directNeighborOffsets) {
@@ -107,31 +107,15 @@ void Day12::Region::matchEdges() {
 
                 auto otherPiece = edgePieces.find(possibleEdge);
 
-                if (otherPiece != edgePieces.end()) {
-                    if (*edgePiece.identifier == EdgePiece::invalidIdentifier &&
-                        *otherPiece->identifier == EdgePiece::invalidIdentifier) {
-                        *edgePiece.identifier = identifier;
-                        ++identifier;
-                    } else if (*edgePiece.identifier == EdgePiece::invalidIdentifier &&
-                               *otherPiece->identifier != EdgePiece::invalidIdentifier) {
-                        *edgePiece.identifier = *(*otherPiece).identifier;
-                    } else if (*edgePiece.identifier != EdgePiece::invalidIdentifier &&
-                               *otherPiece->identifier != EdgePiece::invalidIdentifier) {
-                        auto minIdent = std::min(*edgePiece.identifier, *(*otherPiece).identifier);
-                        auto maxIdent = std::max(*edgePiece.identifier, *(*otherPiece).identifier);
+                if (otherPiece != edgePieces.end() && *(*otherPiece).identifier != EdgePiece::invalidIdentifier) {
+                    auto minIdent = std::min(*edgePiece.identifier, *(*otherPiece).identifier);
+                    auto maxIdent = std::max(*edgePiece.identifier, *(*otherPiece).identifier);
 
-                        for (const auto& p: edgePieces) {
-                            if (*p.identifier == maxIdent)
-                                *p.identifier = minIdent;
-                        }
-                    }
+                    for (const auto& p: edgePieces)
+                        if (*p.identifier == maxIdent)
+                            *p.identifier = minIdent;
                 }
             }
-        }
-
-        if (*edgePiece.identifier == EdgePiece::invalidIdentifier) {
-            *edgePiece.identifier = identifier;
-            ++identifier;
         }
     }
 }
