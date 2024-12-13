@@ -23,7 +23,7 @@ private:
         Point2D outer{};
         std::shared_ptr<int> identifier{std::make_shared<int>(invalidIdentifier)}; // not part of '==' or hash
 
-        static constexpr int invalidIdentifier = 1000000;
+        static constexpr int invalidIdentifier = -1;
 
         bool operator==(const EdgePiece& other) const {
             return inner == other.inner && outer == other.outer;

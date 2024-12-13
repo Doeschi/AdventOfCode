@@ -3,6 +3,7 @@
 #include <vector>
 #include <format>
 #include <chrono>
+#include <regex>
 
 #include "src/BaseDay/BaseDay.h"
 #include "src/Day01/Day01.h"
@@ -17,6 +18,7 @@
 #include "src/Day10/Day10.h"
 #include "src/Day11/Day11.h"
 #include "src/Day12/Day12.h"
+#include "src/Day13/Day13.h"
 
 std::string getDurationText(const std::chrono::time_point<std::chrono::steady_clock>& start,
                             const std::chrono::time_point<std::chrono::steady_clock>& end) {
@@ -74,7 +76,9 @@ void runAllDays() {
 }
 
 int main() {
-    auto d = std::make_shared<Day12>();
+    auto d = std::make_shared<Day13>();
     runDay(*d);
 //    runAllDays();
+
+
 }
