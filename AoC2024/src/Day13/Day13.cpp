@@ -14,26 +14,32 @@ Day13::Day13() : BaseDay{"day13.txt"} {
 }
 
 void Day13::solvePartOne() {
-    auto tokens = 0;
+    auto tokens = 0ll;
 
     for (const auto& machine: m_clawMachines) {
-        for (int aMultiplier = 1; aMultiplier < 101; ++aMultiplier) {
-            for (int bMultiplier = 1; bMultiplier < 101; ++bMultiplier) {
-                auto possibleX = machine.ax * aMultiplier + machine.bx * bMultiplier;
-                auto possibleY = machine.ay * aMultiplier + machine.by * bMultiplier;
+        auto btnPresses = getButtonPresses(machine);
 
-                if (possibleX == machine.prizeX && possibleY == machine.prizeY) {
-                    tokens += aMultiplier * 3 + bMultiplier;
-                }
-            }
-        }
+        if (btnPresses.btnA <= 100 && btnPresses.btnB <= 100)
+            tokens += btnPresses.btnA * 3 + btnPresses.btnB;
+
     }
 
     std::cout << "Number of tokens: " << tokens << "\n";
 }
 
 void Day13::solvePartTwo() {
+    auto tokens = 0ll;
+    auto offset = 10000000000000;
 
+    for (auto& machine: m_clawMachines) {
+        machine.prizeX += offset;
+        machine.prizeY += offset;
+
+        auto btnPresses = getButtonPresses(machine);
+        tokens += btnPresses.btnA * 3 + btnPresses.btnB;
+    }
+
+    std::cout << "Number of tokens after correction: " << tokens << "\n";
 }
 
 void Day13::initClawMachines() {
@@ -80,4 +86,19 @@ void Day13::initClawMachines() {
 
         ++i;
     }
+}
+
+Day13::ButtonPresses Day13::getButtonPresses(const Day13::ClawMachine& machine) {
+    auto det = machine.ax * machine.by - machine.bx * machine.ay;
+
+    if (det == 0)
+        return ButtonPresses{};
+
+    auto detA = (machine.prizeX * machine.by - machine.bx * machine.prizeY);
+    auto detB = (machine.ax * machine.prizeY - machine.prizeX * machine.ay);
+
+    if (detA % det == 0 && detB % det == 0)
+        return ButtonPresses{detA / det, detB / det};
+    else
+        return ButtonPresses{};
 }

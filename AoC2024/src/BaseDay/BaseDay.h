@@ -14,6 +14,7 @@ public:
     virtual ~BaseDay() = default;
 
     [[maybe_unused]] virtual void solvePartOne() = 0;
+
     [[maybe_unused]] virtual void solvePartTwo() = 0;
 
 protected:
