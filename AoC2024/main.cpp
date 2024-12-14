@@ -19,6 +19,7 @@
 #include "src/Day11/Day11.h"
 #include "src/Day12/Day12.h"
 #include "src/Day13/Day13.h"
+#include "src/Day14/Day14.h"
 
 std::string getDurationText(const std::chrono::time_point<std::chrono::steady_clock>& start,
                             const std::chrono::time_point<std::chrono::steady_clock>& end) {
@@ -76,7 +77,7 @@ void runAllDays() {
 }
 
 int main() {
-    auto d = std::make_shared<Day13>();
+    auto d = std::make_shared<Day14>();
     runDay(*d);
 //    runAllDays();
 
