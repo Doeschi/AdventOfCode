@@ -1,7 +1,7 @@
 /*
-    Visualization with p5js
+    Visualization with p5js for part 2
 
-    https://editor.p5js.org/
+    Paste everything into the online editor: https://editor.p5js.org/
  */
 class Robot {
     constructor(x, y, xVel, yVel) {

@@ -71,17 +71,22 @@ struct Point2D {
     Point2D operator+(const Point2D& other) const {
         return Point2D{x + other.x, y + other.y};
     }
+
+    void operator+=(const Point2D& other){
+        x += other.x;
+        y += other.y;
+    }
 };
 
-struct FPoint2D {
-    float x;
-    float y;
-
-    bool operator==(const FPoint2D& other) const {
-        return std::fabs(x - other.x) < std::numeric_limits<float>::epsilon() &&
-               std::fabs(y - other.y) < std::numeric_limits<float>::epsilon();
-    };
-};
+//struct FPoint2D {
+//    float x;
+//    float y;
+//
+//    bool operator==(const FPoint2D& other) const {
+//        return std::fabs(x - other.x) < std::numeric_limits<float>::epsilon() &&
+//               std::fabs(y - other.y) < std::numeric_limits<float>::epsilon();
+//    };
+//};
 
 struct Point2DHash {
     std::size_t operator()(const Point2D& p) const {

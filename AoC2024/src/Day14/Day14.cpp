@@ -38,7 +38,7 @@ void Day14::solvePartTwo() {
         auto neighbors = 0;
         for (auto y = 0; y < m_height; ++y) {
             for (auto x = 0; x < m_width; ++x) {
-                // the cell has at least one robot on it
+                // the cell has at least one robotPos on it
                 if (m_cells[y][x] != 0) {
 
                     // check all direct neighbors
