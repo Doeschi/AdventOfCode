@@ -28,7 +28,7 @@ file(GLOB DAY_SOURCES "src/Day*/Day*.cpp" "src/Day*/Day*.h")
 list(APPEND SOURCES ${DAY_SOURCES})
 
 # Create the executable
-add_executable(AoC2024 ${SOURCES})
+add_executable(AoC2017 ${SOURCES})
 
 # Copy textfiles to bin directory
 file(GLOB DAY_TXT "src/Day*/Day*.txt")
