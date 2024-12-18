@@ -51,11 +51,11 @@ void Day12::initGardenPlots() {
 
 
 void Day12::initRegions() {
-    std::unordered_set<Point2D, Point2DHash> visitedPlots;
+    std::unordered_set<Vector2D, Vector2DHash> visitedPlots;
 
     for (int y = 0; y < m_gardenPlots.plots.size(); ++y) {
         for (int x = 0; x < m_gardenPlots.plots[y].size(); ++x) {
-            Point2D pos{x, y};
+            Vector2D pos{x, y};
 
             if (visitedPlots.contains(pos))
                 continue;
@@ -67,19 +67,19 @@ void Day12::initRegions() {
     }
 }
 
-Day12::Region::Region(const Day12::GardenPlots& gardenPlots, const Point2D pos) {
+Day12::Region::Region(const Day12::GardenPlots& gardenPlots, const Vector2D pos) {
     searchPlots(gardenPlots, pos);
     matchEdges();
 }
 
-void Day12::Region::searchPlots(const Day12::GardenPlots& gardenPlots, const Point2D currentPlot) {
+void Day12::Region::searchPlots(const Day12::GardenPlots& gardenPlots, const Vector2D currentPlot) {
     if (plots.contains(currentPlot))
         return;
 
     plots.insert(currentPlot);
 
     for (const auto& offset: directNeighborOffsets) {
-        Point2D neighbor = currentPlot + offset;
+        Vector2D neighbor = currentPlot + offset;
 
         if (neighbor.x < 0 || neighbor.x > gardenPlots.width - 1 || neighbor.y < 0 ||
             neighbor.y > gardenPlots.height - 1) {

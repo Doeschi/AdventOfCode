@@ -10,6 +10,8 @@
 #include "src/Day03/Day03.h"
 #include "src/Day04/Day04.h"
 #include "src/Day05/Day05.h"
+#include "src/Day06/Day06.h"
+#include "src/Day07/Day07.h"
 
 std::string getDurationText(const std::chrono::time_point<std::chrono::steady_clock>& start,
                             const std::chrono::time_point<std::chrono::steady_clock>& end) {
@@ -60,7 +62,7 @@ void runAllDays() {
 }
 
 int main() {
-    auto d = std::make_shared<Day05>();
+    auto d = std::make_shared<Day07>();
     runDay(*d);
 //    runAllDays();
 }

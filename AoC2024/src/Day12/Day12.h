@@ -19,8 +19,8 @@ public:
 
 private:
     struct EdgePiece {
-        Point2D inner{};
-        Point2D outer{};
+        Vector2D inner{};
+        Vector2D outer{};
         std::shared_ptr<int> identifier{std::make_shared<int>(invalidIdentifier)}; // not part of '==' or hash
 
         static constexpr int invalidIdentifier = -1;
@@ -49,13 +49,13 @@ private:
 
     struct Region {
     public:
-        std::unordered_set<Point2D, Point2DHash> plots;
+        std::unordered_set<Vector2D, Vector2DHash> plots;
         std::unordered_set<EdgePiece, EdgePieceHash> edgePieces;
 
-        explicit Region(const GardenPlots& gardenPlots, Point2D pos);
+        explicit Region(const GardenPlots& gardenPlots, Vector2D pos);
 
     private:
-        void searchPlots(const Day12::GardenPlots& gardenPlots, Point2D currentPlot);
+        void searchPlots(const Day12::GardenPlots& gardenPlots, Vector2D currentPlot);
 
         void matchEdges();
     };

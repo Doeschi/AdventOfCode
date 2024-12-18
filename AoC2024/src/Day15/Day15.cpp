@@ -56,16 +56,16 @@ void Day15::initWarehouse() {
     }
 }
 
-Point2D Day15::getMoveOffset(char move) {
+Vector2D Day15::getMoveOffset(char move) {
     switch (move) {
         case '^':
-            return Point2D(0, -1);
+            return Vector2D(0, -1);
         case '>':
-            return Point2D(1, 0);
+            return Vector2D(1, 0);
         case 'v':
-            return Point2D(0, 1);
+            return Vector2D(0, 1);
         case '<':
-            return Point2D(-1, 0);
+            return Vector2D(-1, 0);
         default:
             std::cout << "UNKNOWN MOVE: " << move << "\n";
             exit(420);
@@ -81,8 +81,8 @@ void Day15::Warehouse::applyMoves(const std::string& moves) {
     }
 }
 
-bool Day15::Warehouse::isMoveable(const Point2D& offset) {
-    std::deque<Point2D> checkPos;
+bool Day15::Warehouse::isMoveable(const Vector2D& offset) {
+    std::deque<Vector2D> checkPos;
 
     checkPos.push_back(robotPos + offset);
 
@@ -98,21 +98,21 @@ bool Day15::Warehouse::isMoveable(const Point2D& offset) {
             checkPos.push_back(check + offset);
 
             if (offset.y != 0 && tile == '[')
-                checkPos.push_back(check + offset + Point2D{1, 0});
+                checkPos.push_back(check + offset + Vector2D{1, 0});
             else if (offset.y != 0 && tile == ']')
-                checkPos.push_back(check + offset + Point2D{-1, 0});
+                checkPos.push_back(check + offset + Vector2D{-1, 0});
         }
     }
 
     return true;
 }
 
-void Day15::Warehouse::move(const Point2D& offset) {
+void Day15::Warehouse::move(const Vector2D& offset) {
     move(robotPos, offset);
     robotPos += offset;
 }
 
-void Day15::Warehouse::move(const Point2D& pos, const Point2D& offset) {
+void Day15::Warehouse::move(const Vector2D& pos, const Vector2D& offset) {
     auto check = pos + offset;
     auto tile = map[check.y][check.x];
 
@@ -120,9 +120,9 @@ void Day15::Warehouse::move(const Point2D& pos, const Point2D& offset) {
         move(check, offset);
 
         if (offset.y != 0 && tile == '[')
-            move(check + Point2D{1, 0}, offset);
+            move(check + Vector2D{1, 0}, offset);
         else if (offset.y != 0 && tile == ']')
-            move(check + Point2D{-1, 0}, offset);
+            move(check + Vector2D{-1, 0}, offset);
     }
 
     map[check.y][check.x] = map[pos.y][pos.x];

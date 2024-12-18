@@ -19,7 +19,7 @@ public:
     void solvePartTwo() override;
 
 private:
-    std::unordered_map<char, std::vector<Point2D>> m_frequencies;
+    std::unordered_map<char, std::vector<Vector2D>> m_frequencies;
 
     int m_gridWidth;
     int m_gridHeight;
@@ -27,9 +27,9 @@ private:
 
     void initFrequencies();
 
-    void getAntiNodes(const Point2D& pos, int xDiff, int yDiff, int maxIterations,
-                      std::unordered_set<Point2D, Point2DHash>& uniqueLocations) const;
+    void getAntiNodes(const Vector2D& pos, int xDiff, int yDiff, int maxIterations,
+                      std::unordered_set<Vector2D, Vector2DHash>& uniqueLocations) const;
 
-    void getAntiNodesFromAntennas(const std::vector<Point2D>& antennas, int maxIterations,
-                                  std::unordered_set<Point2D, Point2DHash>& uniqueLocations) const;
+    void getAntiNodesFromAntennas(const std::vector<Vector2D>& antennas, int maxIterations,
+                                  std::unordered_set<Vector2D, Vector2DHash>& uniqueLocations) const;
 };

@@ -24,5 +24,5 @@ private:
 
     void initMap();
 
-    [[nodiscard]] std::vector<Point2D> getPeaks(Point2D pos) const;
+    [[nodiscard]] std::vector<Vector2D> getPeaks(Vector2D pos) const;
 };

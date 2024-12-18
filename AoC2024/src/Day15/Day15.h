@@ -22,15 +22,15 @@ private:
 
     struct Warehouse {
         Map map{};
-        Point2D robotPos{};
+        Vector2D robotPos{};
 
         void applyMoves(const std::string& moves);
 
-        [[nodiscard]] bool isMoveable(const Point2D& offset);
+        [[nodiscard]] bool isMoveable(const Vector2D& offset);
 
-        void move(const Point2D& offset);
+        void move(const Vector2D& offset);
 
-        void move(const Point2D& pos, const Point2D& offset);
+        void move(const Vector2D& pos, const Vector2D& offset);
 
         [[nodiscard]] int getGpsSum() const;
 
@@ -44,5 +44,5 @@ private:
 
     void initWarehouse();
 
-    static Point2D getMoveOffset(char move);
+    static Vector2D getMoveOffset(char move);
 };

@@ -17,8 +17,8 @@ public:
 
 private:
     struct Robot {
-        Point2D pos;
-        Point2D vel;
+        Vector2D pos;
+        Vector2D vel;
     };
 
     std::vector<Robot> m_robots;
