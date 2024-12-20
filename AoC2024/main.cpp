@@ -23,6 +23,8 @@
 #include "src/Day16/Day16.h"
 #include "src/Day17/Day17.h"
 #include "src/Day18/Day18.h"
+#include "src/Day19/Day19.h"
+#include "src/Day20/Day20.h"
 
 std::string getDurationText(const std::chrono::time_point<std::chrono::steady_clock>& start,
                             const std::chrono::time_point<std::chrono::steady_clock>& end) {
@@ -67,6 +69,9 @@ void runAllDays() {
     allDays.push_back(std::make_unique<Day15>());
 //    allDays.push_back(std::make_unique<Day16>());
 //    allDays.push_back(std::make_unique<Day17>());
+    allDays.push_back(std::make_unique<Day18>());
+//    allDays.push_back(std::make_unique<Day19>());
+    allDays.push_back(std::make_unique<Day20>());
 
     auto start = std::chrono::high_resolution_clock::now();
     for (auto i{0}; i < allDays.size(); ++i) {
@@ -85,7 +90,7 @@ void runAllDays() {
 }
 
 int main() {
-    auto d = std::make_shared<Day18>();
+    auto d = std::make_shared<Day20>();
     runDay(*d);
 //    runAllDays();
 }

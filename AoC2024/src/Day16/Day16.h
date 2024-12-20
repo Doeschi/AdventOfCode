@@ -27,7 +27,7 @@ private:
         int scoreToEnd{};
 
         bool operator==(const Tile& other) const {
-            return pos.x == other.pos.x & pos.y == other.pos.y && dir.x == other.dir.x & dir.y == other.dir.y;
+            return pos.x == other.pos.x && pos.y == other.pos.y;
         };
     };
 
@@ -35,10 +35,8 @@ private:
         std::size_t operator()(const Tile& tile) const {
             std::size_t h1 = std::hash<int>()(tile.pos.x);
             std::size_t h2 = std::hash<int>()(tile.pos.y);
-            std::size_t h3 = std::hash<int>()(tile.dir.x);
-            std::size_t h4 = std::hash<int>()(tile.dir.y);
 
-            return h1 ^ (h2 << 1) ^ (h3 << 2) ^ (h4 << 3);
+            return h1 ^ (h2 << 1);
         }
     };
 
@@ -50,6 +48,8 @@ private:
     void initMaze();
 
     [[nodiscard]] int getScoreToEnd(Tile& tile, std::unordered_set<Vector2D, Vector2DHash>& seen);
+
+    void printMaze() const;
 
     static int getRotationDiff(Vector2D v1, Vector2D v2);
 };

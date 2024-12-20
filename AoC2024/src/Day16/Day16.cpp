@@ -5,24 +5,68 @@
 //
 
 #include <iostream>
+#include <deque>
 
 #include "Day16.h"
-
-static int hits = 0;
-static int nohits = 0;
 
 Day16::Day16() : BaseDay{"day16.txt"} {
     initMaze();
 }
 
 void Day16::solvePartOne() {
-    std::unordered_set<Vector2D, Vector2DHash> seen{};
-    Tile start{m_start, Vector2D(1, 0), 0, 0};
-    auto minScore = getScoreToEnd(start, seen);
+//    std::unordered_set<Vector2D, Vector2DHash> seen{};
+//    Tile start{m_start, Vector2D(1, 0), 0, 0};
+//    auto minScore = getScoreToEnd(start, seen);
 
-    std::cout << "Lowest score: " << minScore << "\n";
-    std::cout << "Hits: " << hits << "\n";
-    std::cout << "No Hits: " << nohits << "\n";
+    std::deque<Tile> queue;
+    std::unordered_set<Tile, TileHash> seen;
+
+    Tile start{m_start, Vector2D(1, 0), 0, 0};
+
+    queue.push_back(start);
+    seen.insert(start);
+
+    while (!queue.empty()) {
+        auto current = queue.front();
+        queue.pop_front();
+
+        for (const auto& offset: directNeighborOffsets) {
+            auto check = Tile{current.pos + offset, offset,
+                              current.scoreToTile + 1 + getRotationDiff(current.dir, offset)};
+
+            if (m_maze[check.pos.y][check.pos.x] == '#')
+                continue;
+
+            auto seenIt = seen.find(check);
+
+            if (seenIt != seen.end()) {
+                auto seenTile = *seenIt;
+
+                if (seenTile.scoreToTile > check.scoreToTile) {
+                    seenTile.scoreToTile = check.scoreToTile;
+                    queue.push_back(check);
+                    m_maze[check.pos.y][check.pos.x] = std::to_string(check.scoreToTile)[0];
+                }
+
+                continue;
+            }
+
+            seen.insert(check);
+            queue.push_back(check);
+            m_maze[check.pos.y][check.pos.x] = std::to_string(check.scoreToTile)[0];
+        }
+
+        printMaze();
+        std::cout << std::endl;
+    }
+
+    auto endIt = seen.find(Tile{m_end});
+
+    if (endIt != seen.end())
+        std::cout << "Lowest score: " << endIt->scoreToTile << "\n";
+    else
+        std::cout << "END WAS NOT FOUND :(";
+
 }
 
 void Day16::solvePartTwo() {
@@ -58,7 +102,6 @@ int Day16::getScoreToEnd(Day16::Tile& tile, std::unordered_set<Vector2D, Vector2
     auto cacheIt = m_tileCache.find(tile);
 
     if (cacheIt != m_tileCache.end()) {
-        ++hits;
         auto cacheTile = *cacheIt;
 
         if (cacheTile.scoreToEnd == std::numeric_limits<int>::max()) {
@@ -70,8 +113,6 @@ int Day16::getScoreToEnd(Day16::Tile& tile, std::unordered_set<Vector2D, Vector2
             cacheTile.scoreToTile = tile.scoreToTile + rotationDiff;
 
         return cacheTile.scoreToEnd;
-    } else {
-        ++nohits;
     }
 
     int minScore = std::numeric_limits<int>::max() / 2;
@@ -99,7 +140,7 @@ int Day16::getScoreToEnd(Day16::Tile& tile, std::unordered_set<Vector2D, Vector2
     m_tileCache.insert(tile);
 
     seen.erase(tile.pos);
-    return  minScore;
+    return minScore;
 }
 
 int Day16::getRotationDiff(Vector2D v1, Vector2D v2) {
@@ -108,4 +149,16 @@ int Day16::getRotationDiff(Vector2D v1, Vector2D v2) {
     else if (v1.x == v2.x || v1.y == v2.y)
         return 2000;
     else return 1000;
+}
+
+void Day16::printMaze() const {
+    for (const auto& row: m_maze) {
+        for (const auto& c: row) {
+            std::cout << c;
+        }
+
+        std::cout << "\n";
+    }
+
+    std::cout << std::endl;
 }
