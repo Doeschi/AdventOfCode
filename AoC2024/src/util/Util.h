@@ -76,6 +76,10 @@ struct Vector2D {
         return Vector2D{x + other.x, y + other.y};
     }
 
+    Vector2D operator-(const Vector2D& other) const {
+        return Vector2D{x - other.x, y - other.y};
+    }
+
     void operator+=(const Vector2D& other) {
         x += other.x;
         y += other.y;

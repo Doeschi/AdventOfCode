@@ -101,7 +101,7 @@ int Day20::getCheats(int picoSeconds) const {
 void Day20::printGrid() const {
     for (const auto& row: m_grid) {
         for (const auto& c: row) {
-            if (c == -1)
+            if (c == WALL)
                 std::cout << '#';
             else
                 std::cout << std::to_string(c)[0];

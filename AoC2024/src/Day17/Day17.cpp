@@ -24,19 +24,19 @@ void Day17::solvePartTwo() {
     auto computer = m_computer;
     std::unordered_set<State, StateHash> knownStates{};
 
-    for (size_t i = 0; i < 1'000'000'000'000; ++i) {
-        computer.m_regA = i;
-        computer.m_regB = 0;
-        computer.m_regC = 0;
-        computer.m_output.clear();
-        computer.m_pointer = 0;
-        auto found = computer.runProgram2(knownStates);
-
-        if (found) {
-            std::cout << "Value of register A: " << i << "\n";
-            return;
-        }
-    }
+//    for (size_t i = 0; i < 1'000'000'000'000; ++i) {
+//        computer.m_regA = i;
+//        computer.m_regB = 0;
+//        computer.m_regC = 0;
+//        computer.m_output.clear();
+//        computer.m_pointer = 0;
+//        auto found = computer.runProgram2(knownStates);
+//
+//        if (found) {
+//            std::cout << "Value of register A: " << i << "\n";
+//            return;
+//        }
+//    }
 
     std::cout << "Noting found :(" << "\n";
 }
